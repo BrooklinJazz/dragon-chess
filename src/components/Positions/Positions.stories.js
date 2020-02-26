@@ -6,6 +6,7 @@ import { primary } from "../../theme/colors";
 import styled from "styled-components";
 import { colorFromPosition } from "../../helpers.ts";
 import { A1, A2 } from "../../constants/positions";
+import { Pawn } from "../../constants/pieces";
 
 export default {
   title: "Positions",
@@ -21,14 +22,23 @@ const PositionContainer = styled.div`
 export const EvenPosition = () => (
   <PageContainer>
     <PositionContainer>
-      <Position color={colorFromPosition(A1)} />
+      <Position position={A1} />
     </PositionContainer>
   </PageContainer>
 );
+
 export const OddPosition = () => (
   <PageContainer>
     <PositionContainer>
-      <Position color={colorFromPosition(A2)} />
+      <Position position={A2}/>
+    </PositionContainer>
+  </PageContainer>
+);
+
+export const WithPawn = () => (
+  <PageContainer>
+    <PositionContainer>
+      <Position position={A1} piece={Pawn} />
     </PositionContainer>
   </PageContainer>
 );
