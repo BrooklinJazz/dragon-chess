@@ -1,6 +1,5 @@
 import React from "react";
 import { positions } from "../../constants/positions";
-import { colorFromPosition } from "../../helpers.ts";
 import { Position } from "./Position";
 
 export const Positions = () => {

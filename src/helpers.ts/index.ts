@@ -1,5 +1,5 @@
 import { primary, secondary } from "../theme/colors";
-import { oddLetters, evenLetters } from "../constants/positions";
+import { oddLetters } from "../constants/positions";
 
 export const numberTypeFromPosition = (position: string): "odd" | "even" => {
   const positionNumber = numberFromPosition(position);
@@ -23,7 +23,6 @@ export const colorFromPosition = (position: string) => {
       return secondary;
     default:
         throw new Error(`colorFromPosition called with invalid position ${position}`)
-      break;
   }
 };
 

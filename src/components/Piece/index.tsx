@@ -8,6 +8,7 @@ import { faChessPawn } from "@fortawesome/free-solid-svg-icons";
 
 interface IPieceProps {
   piece: IPiece;
+  height?: number;
 }
 
 const iconFromPiece = (piece: IPiece) => {
@@ -21,7 +22,9 @@ const iconFromPiece = (piece: IPiece) => {
 
 const PieceIcon: any = styled(FontAwesomeIcon).attrs((props: IPieceProps) => ({
   icon: iconFromPiece(props.piece),
-}))``
+}))`
+  font-size: ${(props: IPieceProps) => (props.height || 25) - 6}px;
+`
 
 export const Piece = ({ piece, ...restProps }: IPieceProps) => (
   <PieceIcon {...restProps} piece={piece}/>

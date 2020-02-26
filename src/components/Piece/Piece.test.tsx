@@ -7,8 +7,8 @@ import { A1, A2 } from "../../constants/positions";
 import { Pawn } from "../../constants/pieces";
 import { Piece } from ".";
 
-test("with a1", () => {
-  const { getByTestId } = render(<Piece data-testid={Pawn.id} piece={Pawn} />);
+test("with pawn", () => {
+  const { getByTestId } = render(<Piece height={50} data-testid={Pawn.id} piece={Pawn} />);
   const piece = getByTestId(Pawn.id);
   expect(piece).toBeInTheDocument();
   expect(piece).toHaveClass("fa-chess-pawn")

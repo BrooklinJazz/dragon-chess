@@ -20,8 +20,6 @@ const PieceContainer = styled.div`
 
 export const WithPawn = () => (
   <PageContainer>
-    <PieceContainer>
-      <Piece piece={Pawn} />
-    </PieceContainer>
+      <Piece height={50} piece={Pawn} />
   </PageContainer>
 );
