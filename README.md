@@ -1,5 +1,5 @@
-# Client Starter
-Client starter is designed to be a quick starter using a variety of my favourite tools and libraries
+# Dragin Chess
+A fantasy themed chess game [WIP]
 
 # Tech Stack
 - React
