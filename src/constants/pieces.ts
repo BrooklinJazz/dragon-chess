@@ -1,5 +1,10 @@
+export enum Pieces {
+    pawn,
+    knight
+}
+
 export interface IPiece {
-    name: string;
+    type: Pieces;
     player: "white" | "black";
     position: string;
     id: string;
@@ -7,7 +12,7 @@ export interface IPiece {
 
 export const Pawn: IPiece = {
     id: "placeholderId",
-    name: "Pawn",
+    type: Pieces.pawn,
     player: "white",
     position: "a2"
 }

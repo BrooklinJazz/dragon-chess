@@ -2,9 +2,7 @@ import React from "react";
 import { Positions } from ".";
 import { PageContainer } from "../PageContainer";
 import { Position } from "./Position";
-import { primary } from "../../theme/colors";
 import styled from "styled-components";
-import { colorFromPosition } from "../../helpers.ts";
 import { A1, A2 } from "../../constants/positions";
 import { Pawn } from "../../constants/pieces";
 

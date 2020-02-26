@@ -9,9 +9,7 @@ import { Pawn } from "../../constants/pieces";
 
 test("with a1", () => {
   const { getByTestId } = render(
-    <Provider store={store}>
       <Position data-testid={A1} position={A1} />
-    </Provider>
   );
   const position = getByTestId(A1);
   expect(position).toHaveStyle(`background-color: ${primary}`);
@@ -19,9 +17,7 @@ test("with a1", () => {
 
 test("with a2", () => {
   const { getByTestId } = render(
-    <Provider store={store}>
       <Position data-testid={A2} position={A2}/>
-    </Provider>
   );
   const position = getByTestId(A2);
   expect(position).toHaveStyle(`background-color: ${secondary}`);
@@ -29,9 +25,7 @@ test("with a2", () => {
 
 test("with pawn", () => {
   const { getByTestId } = render(
-    <Provider store={store}>
       <Position data-testid={A1} position={A1} piece={Pawn}/>
-    </Provider>
   );
   const position = getByTestId(A1);
   const piece = getByTestId(Pawn.id);

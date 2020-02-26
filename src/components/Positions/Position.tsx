@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { secondary, primary } from "../../theme/colors";
 import { colorFromPosition } from "../../helpers.ts";
 import { IPiece } from "../../constants/pieces";
+import { Piece } from "../Piece";
 
 interface IContainerProps {
   position: string;
@@ -20,12 +21,6 @@ const PositionContainer = styled.div<IContainerProps>(
   background-color: ${colorFromPosition(props.position)};
   `
 );
-
-interface IPieceProps {
-  piece: IPiece;
-}
-
-const Piece = styled.div<IPieceProps>``;
 
 export const Position = ({ position, piece, ...restProps }: IPositionProps) => {
   return (
