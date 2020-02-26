@@ -2,8 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { IPiece, Pieces } from "../../constants/pieces";
 import {
-  FontAwesomeIcon,
-  FontAwesomeIconProps
+  FontAwesomeIcon
 } from "@fortawesome/react-fontawesome";
 import { faChessPawn } from "@fortawesome/free-solid-svg-icons";
 
