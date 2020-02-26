@@ -1,4 +1,4 @@
-# Dragin Chess
+# Dragon Chess
 A fantasy themed chess game [WIP]
 
 # Tech Stack
