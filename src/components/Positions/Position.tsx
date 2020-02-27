@@ -4,6 +4,9 @@ import { colorFromPosition } from "../../helpers.ts";
 import { IPiece } from "../../constants/pieces";
 import { Piece } from "../Piece";
 import { useDimensions } from "../../hooks/useDimensions";
+import { useSelector } from "react-redux";
+import { selectPiece } from "../../redux/selectors";
+import { AppState } from "../../store";
 
 interface IContainerProps {
   position: string;
@@ -25,11 +28,12 @@ const PositionContainer = styled.div<IContainerProps>(
   `
 );
 
-export const Position = ({ position, piece, ...restProps }: IPositionProps) => {
+export const Position = ({ position, ...restProps }: IPositionProps) => {
   const target = useRef<HTMLDivElement>(null)
   const {height, width} = useDimensions(target)
+  const piece = useSelector((state: AppState) => selectPiece(state, position))
   return (
-    <PositionContainer {...restProps} ref={target} position={position}>
+    <PositionContainer data-testid={position} ref={target} position={position}>
       {piece && <Piece height={height} piece={piece} data-testid={piece.id} />}
     </PositionContainer>
   );

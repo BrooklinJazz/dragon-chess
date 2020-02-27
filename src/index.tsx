@@ -1,10 +1,17 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
-import App from "./App";
+import {App} from "./App";
 import * as serviceWorker from "./serviceWorker";
 import { Provider } from "react-redux";
 import store from "./store";
+
+
+const withProvider = (story: any) => (
+  <Provider store={store}>
+    { story() }
+  </Provider>
+)
 
 ReactDOM.render(
   <Provider store={store}>

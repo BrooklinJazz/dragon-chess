@@ -1,7 +1,5 @@
 import React from "react";
-import { exampleAction } from "./redux/example";
 import { connect } from "react-redux";
-import { selectExample } from "./redux/selectors";
 import { AppState } from "./store";
 import styled from "styled-components";
 
@@ -13,35 +11,12 @@ const Container = styled.div`
   align-items: center;
 `
 
-const App = ({exampleAction, example}: IProps) => {
+export const App = () => {
   return (
     <Container
-      onClick={() => {
-        exampleAction({});
-      }}
       className="App"
     >
-      {example}
+      App
     </Container>
   );
 }
-
-interface IProps extends IDispatch, IState {}
-
-interface IDispatch {
-  exampleAction: typeof exampleAction
-}
-
-interface IState {
-  example: ReturnType<typeof selectExample>
-}
-
-const mapDispatchToProps: IDispatch = {
-  exampleAction
-}
-
-const mapStateToProps = (state: AppState) => ({
-  example: selectExample(state)
-})
-
-export default connect(mapStateToProps, mapDispatchToProps)(App);

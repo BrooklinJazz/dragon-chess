@@ -20,17 +20,17 @@ export interface IPiece {
     id: string;
 }
 
-export const Pawn: IPiece = {
-    id: "placeholderId",
+export const A7Pawn: IPiece = {
+    id: "black-pawn-0",
     type: Pieces.pawn,
-    player: "white",
-    position: "a2"
+    player: "black",
+    position: "a7"
 }
 
-const BlackRow7: IPiece[] = row7.map((position, index) => ({player: "black", type: pawn, position, id: `black-${pawn}${index}`}))
+const BlackRow7: IPiece[] = row7.map((position, index) => ({player: "black", type: pawn, position, id: `black-${pawn}-${index}`}))
 const BlackRow8: IPiece[] = row8.map((position, index) => {
     const type = pieceRow[index];
-    return ({player: "black", type, position, id: `black-${type}${index}`})
+    return ({player: "black", type, position, id: `black-${type}-${index}`})
 })
 
 export const BlackPieces: IPiece[] = [...BlackRow7, ...BlackRow8]

@@ -4,7 +4,7 @@ import { PageContainer } from "../PageContainer";
 import { Position } from "./Position";
 import styled from "styled-components";
 import { A1, A2 } from "../../constants/positions";
-import { Pawn } from "../../constants/pieces";
+import { A7Pawn } from "../../constants/pieces";
 
 export default {
   title: "Positions",
@@ -36,7 +36,7 @@ export const OddPosition = () => (
 export const WithPawn = () => (
   <PageContainer>
     <PositionContainer>
-      <Position position={A1} piece={Pawn} />
+      <Position position={A1} piece={A7Pawn} />
     </PositionContainer>
   </PageContainer>
 );

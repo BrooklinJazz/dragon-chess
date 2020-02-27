@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import {example} from './redux/example'
+import {game} from './redux/game'
 
 const store = configureStore({
     reducer: {
-        example
+        game
     }
 })
 

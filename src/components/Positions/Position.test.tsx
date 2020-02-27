@@ -1,14 +1,14 @@
 import React from "react";
 import { Position } from "./Position";
 import { Provider } from "react-redux";
-import { render } from "@testing-library/react";
 import store from "../../store";
 import { primary, secondary } from "../../theme/colors";
-import { A1, A2 } from "../../constants/positions";
-import { Pawn } from "../../constants/pieces";
+import { A1, A2, A7 } from "../../constants/positions";
+import { A7Pawn } from "../../constants/pieces";
+import { customRender } from "../../test-utils";
 
 test("with a1", () => {
-  const { getByTestId } = render(
+  const { getByTestId } = customRender(
       <Position data-testid={A1} position={A1} />
   );
   const position = getByTestId(A1);
@@ -16,7 +16,7 @@ test("with a1", () => {
 });
 
 test("with a2", () => {
-  const { getByTestId } = render(
+  const { getByTestId } = customRender(
       <Position data-testid={A2} position={A2}/>
   );
   const position = getByTestId(A2);
@@ -24,11 +24,11 @@ test("with a2", () => {
 });
 
 test("with pawn", () => {
-  const { getByTestId } = render(
-      <Position data-testid={A1} position={A1} piece={Pawn}/>
+  const { getByTestId } = customRender(
+      <Position data-testid={A7} position={A7}/>
   );
-  const position = getByTestId(A1);
-  const piece = getByTestId(Pawn.id);
+  const position = getByTestId(A7);
+  const piece = getByTestId(A7Pawn.id);
   expect(position).toBeInTheDocument();
   expect(piece).toBeInTheDocument();
 });

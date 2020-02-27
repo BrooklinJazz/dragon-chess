@@ -2,6 +2,7 @@ import React from "react";
 import { ChessBoard } from ".";
 import styled from "styled-components";
 import { PageContainer } from "../PageContainer";
+import { AllTheProviders } from "../../test-utils";
 
 export default {
   title: "ChessBoard",
@@ -15,9 +16,9 @@ const ChessContainer = styled.div`
 `;
 
 export const Empty = () => (
-  <PageContainer>
-    <ChessContainer>
-      <ChessBoard />
-    </ChessContainer>
-  </PageContainer>
+    <PageContainer>
+      <ChessContainer>
+        <ChessBoard />
+      </ChessContainer>
+    </PageContainer>
 );

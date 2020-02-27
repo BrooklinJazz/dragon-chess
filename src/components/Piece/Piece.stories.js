@@ -1,7 +1,7 @@
 import React from "react";
 import { PageContainer } from "../PageContainer";
 import styled from "styled-components";
-import { Pawn } from "../../constants/pieces";
+import { A7Pawn } from "../../constants/pieces";
 import { Piece } from ".";
 
 export default {
@@ -11,6 +11,6 @@ export default {
 
 export const WithPawn = () => (
   <PageContainer>
-      <Piece height={50} piece={Pawn} />
+      <Piece height={50} piece={A7Pawn} />
   </PageContainer>
 );
