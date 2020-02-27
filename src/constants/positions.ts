@@ -18,6 +18,11 @@ export const [
     H1, H2, H3, H4, H5, H6, H7, H8,
 ] = positions
 
+export const row1 = [A1, B1, C1, D1, E1, F1, G1, H1];
+export const row2 = [A2, B2, C2, D2, E2, F2, G2, H2];
+export const row7 = [A7, B7, C7, D7, E7, F7, G7, H7];
+export const row8 = [A8, B8, C8, D8, E8, F8, G8, H8];
+
 export const oddLetters = "aceg";
 export const evenLetters = "bdfh";
 
