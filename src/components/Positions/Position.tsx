@@ -1,6 +1,5 @@
-import React, { useRef, useLayoutEffect, useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import { secondary, primary } from "../../theme/colors";
 import { colorFromPosition } from "../../helpers.ts";
 import { IPiece } from "../../constants/pieces";
 import { Piece } from "../Piece";

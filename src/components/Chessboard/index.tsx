@@ -10,6 +10,8 @@ const Container = styled.div`
   width: 100%;
   display: grid;
   grid-template-columns: repeat(8, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  grid-auto-flow: column;
 `;
 
 export const ChessBoard = () => {
