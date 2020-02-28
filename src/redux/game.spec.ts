@@ -1,19 +1,21 @@
-import { game, initiateMove } from "./game";
-import configureMockStore from "redux-mock-store";
-import { A2Pawn, mockMove } from "../constants/pieces";
+import { game, initiateMove, createGame, IGameState } from "./game";
+import { A2Pawn, mockMove, A7Pawn } from "../constants/pieces";
 import { selectMovingPiece, selectValidPositions } from "./selectors";
 import { AppState } from "../store";
 import { configureStore } from "@reduxjs/toolkit";
 import { A1, A3, A4, A8 } from "../constants/positions";
 
-describe("redux game", () => {
+const configureMockStore = (mockState?: IGameState) =>
+  configureStore({
+    reducer: {
+      game: createGame(mockState).reducer
+    }
+  });
+
+describe("initiate game _ empty board", () => {
   let store: any;
   beforeEach(() => {
-    store = configureStore({
-      reducer: {
-        game
-      }
-    });
+    store = configureMockStore({pieces: []});
   });
 
   it("initiateMove _ A2 Pawn", () => {
@@ -29,10 +31,30 @@ describe("redux game", () => {
     expect(selectValidPositions(store.getState())).toEqual([A4]);
   });
   // this would never happen, but it tests trying to move outside board.
-  it("initiateMove _ A2 Pawn _ in A8 position", () => {
+  it("initiateMove _ A2 Pawn in A8 position", () => {
     const A8Pawn = mockMove(A2Pawn, A8);
     store.dispatch(initiateMove({ piece: A8Pawn }));
     expect(selectMovingPiece(store.getState())).toEqual(A8Pawn);
     expect(selectValidPositions(store.getState())).toEqual([]);
+  });
+  it("initiateMove _ A2 Pawn _ A7Pawn in A3 Position", () => {
+    const A3Pawn = mockMove(A7Pawn, A3);
+    const mockState = {
+      pieces: [A2Pawn, A3Pawn],
+      movingPiece: A2Pawn
+    };
+    store = configureMockStore(mockState)
+
+    expect(selectValidPositions(store.getState())).toEqual([]);
+  });
+
+  it("initiateMove _ A2 Pawn _ A7Pawn in A4 Position", () => {
+    const A4Pawn = mockMove(A7Pawn, A4);
+    const mockState = {
+      pieces: [A2Pawn, A4Pawn],
+      movingPiece: A2Pawn
+    };
+    store = configureMockStore(mockState)
+    expect(selectValidPositions(store.getState())).toEqual([A3]);
   });
 });

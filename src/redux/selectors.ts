@@ -8,23 +8,23 @@ export const selectPieces = (state: AppState) => state.game.pieces;
 export const selectPiece = (state: AppState, position: string) =>
   state.game.pieces.find(piece => piece.position === position);
 export const selectMovingPiece = (state: AppState) => state.game.movingPiece;
+export const selectAllTakenPositions = createSelector(
+  selectPieces,
+  pieces => pieces.map(each => each.position)
+);
 
 export const selectValidPositions = createSelector(
-  selectPieces,
   selectMovingPiece,
-  (pieces, movingPiece) =>
-    movingPiece ? PieceFactory.fromPiece(movingPiece).validMovePositions() : []
+  selectAllTakenPositions,
+  (movingPiece, takenPositions) =>
+    movingPiece ? PieceFactory.fromPiece(movingPiece, takenPositions).validMovePositions() : []
 );
 
 class PieceFactory {
-  static fromPawn(pawn: IPiece) {
-    new Pawn(pawn);
-  }
-
-  static fromPiece(piece: IPiece) {
+  static fromPiece(piece: IPiece, blockedPositions: string[]) {
     switch (piece.type) {
       case Pieces.pawn:
-        return new Pawn(piece);
+        return new Pawn(piece, blockedPositions);
       default:
         throw new Error();
     }
@@ -32,7 +32,7 @@ class PieceFactory {
 }
 
 /**
- * 
+ *
  * NOTE: I have built these only thinking about forward from one perspecting
  */
 
@@ -52,13 +52,32 @@ const incForwardPosition = (position: string) => {
 }
 
 class Piece {
-  constructor(public piece: IPiece) {}
+  constructor(public piece: IPiece, public allTakenPositions: string[]) {
+    // should not include pieces location in taken positions
+    // this interferes with logic such as getAllForwardPositions
+    this.allTakenPositions = allTakenPositions.filter(each => each !== piece.position)
+  }
   initialPosition = this.piece.id.split("-")[2];
   getPosition = () => this.piece.position;
+  getPositionDetails = (position = this.getPosition()) => ({
+    position: position, 
+    letter: letterFromPosition(position), 
+    number: numberFromPosition(position)
+  });
   movePositions = (): string[] => {
     throw new Error("NYI");
   };
   // TODO i can extract some of this logic to make it more DRY
+  allForwardPositions = (position = this.getPosition()) => {
+    let {number, letter} = this.getPositionDetails(position)
+    let fwdPositions = []
+    while(number < positionNumbers.length) {
+      fwdPositions.push(`${letter}${number}`)
+      number++
+    }
+    return fwdPositions
+  }
+
   getForwardPositions = (amount: number) => {
     let positions = []
     let currentPosition = this.getPosition();
@@ -70,6 +89,7 @@ class Piece {
     }
     return positions
   }
+  
   getRightPositions = (amount: number) => {
     let positions = []
     let currentPosition = this.getPosition();
@@ -81,27 +101,38 @@ class Piece {
     }
     return positions
   }
+
+  validMovePositions = (): string[] => {
+    return pipe(
+      this.filterInsideBoard,
+      this.filterOutBlocked
+      )(this.movePositions())
+  }
+
+  filterOutBlocked = (positions: string[]): string[] => {
+    throw new Error("NYI")
+  }
+  filterInsideBoard = (positions: string[]) => positions.filter(position => allPositions.some(each => each === position))
 }
 
-
-
-export const isInsideBoard = (position: string) => {
-  return allPositions.some(each => each === position)
-}
-export const insideBoard = (positions: stringp[]) => {
-  return positions.filter(isInsideBoard)
-}
-
-const pipe = (...fns: any[]) => (initialValue: any) => fns.reduce((value, fn) => fn(value), initialValue)
+const pipe = (...fns: any[]) => (initialValue: any) => fns.reduce((value, fn) => {
+  return fn(value)}, initialValue)
 
 class Pawn extends Piece {
   isFirstMove = () => {
     // this is naive
     return this.initialPosition === this.piece.position;
   };
-  validMovePositions = (): string[] => {
-    return pipe(insideBoard)(this.movePositions())
+
+  filterOutBlocked = (positions: string[]) => {
+    const blocked = this.allTakenPositions.reduce((total: string[], each: string) => {
+      const fwdPositions = this.allForwardPositions(each)
+      const removeDuplicates = fwdPositions.filter(each => !total.some(position => each === position))
+      return [...total, ...removeDuplicates]
+    }, [])
+    return positions.filter(position => !blocked.some(each => each === position))
   }
+
   movePositions = () => {
     return this.isFirstMove() ? this.getForwardPositions(2) : this.getForwardPositions(1) ;
   };

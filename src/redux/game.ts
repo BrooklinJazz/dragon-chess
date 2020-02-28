@@ -5,17 +5,19 @@ interface IPayload<T> {
   payload: T
 }
 
-interface IGameState {
+export interface IGameState {
   pieces: IPiece[]
   movingPiece?: IPiece;
 }
 
-const gameSlice = createSlice({
+export const initialGameState = {
+  pieces: [...BlackPieces, ...WhitePieces],
+  movingPiece: undefined
+}
+
+export const createGame =(mockState?: IGameState) => createSlice({
   name: "game",
-  initialState: {
-    pieces: [...BlackPieces, ...WhitePieces],
-    movingPiece: undefined
-  } as IGameState,
+  initialState: mockState || initialGameState  as IGameState,
   reducers: {
     initiateMove: (state, {payload}: IPayload<{piece: IPiece}>) =>  {
       return {
@@ -27,7 +29,7 @@ const gameSlice = createSlice({
 });
 
 // Extract the action creators object and the reducer
-const { actions, reducer } = gameSlice;
+const { actions, reducer } = createGame();
 
 // Extract and export each action creator by name
 export const { initiateMove } = actions;
