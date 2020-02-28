@@ -26,6 +26,12 @@ export const A7Pawn: IPiece = {
     player: "black",
     position: "a7"
 }
+export const A2Pawn: IPiece = {
+    id: "white-pawn-0",
+    type: Pieces.pawn,
+    player: "white",
+    position: "a2"
+}
 
 const BlackRow7: IPiece[] = row7.map((position, index) => ({player: "black", type: pawn, position, id: `black-${pawn}-${index}`}))
 const BlackRow8: IPiece[] = row8.map((position, index) => {
