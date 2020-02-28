@@ -1,6 +1,6 @@
 import { AppState } from "../store";
 import { createSelector } from "reselect";
-import { A1, A2, A3, A4, positionLetters, positionNumbers } from "../constants/positions";
+import { A1, A2, A3, A4, positionLetters, positionNumbers, positions as allPositions } from "../constants/positions";
 import { IPiece, Pieces } from "../constants/pieces";
 import { letterFromPosition, numberFromPosition } from "../helpers.ts";
 
@@ -13,7 +13,7 @@ export const selectValidPositions = createSelector(
   selectPieces,
   selectMovingPiece,
   (pieces, movingPiece) =>
-    movingPiece ? PieceFactory.fromPiece(movingPiece).movePositions() : []
+    movingPiece ? PieceFactory.fromPiece(movingPiece).validMovePositions() : []
 );
 
 class PieceFactory {
@@ -44,9 +44,11 @@ const getRightPosition = (position: string) => {
   const forwardLetter = positionLetters[Math.min(letterIndex + 1, positionLetters.length - 1)]
   return `${forwardLetter}${number}`
 }
-const getForwardPosition = (position: string) => {
+
+// this fn is very naive. i.e. a8 => a9
+const incForwardPosition = (position: string) => {
   const letter = letterFromPosition(position);
-  return `${letter}${Math.min(numberFromPosition(position) + 1, positionNumbers.length)}`
+  return `${letter}${numberFromPosition(position) + 1}`
 }
 
 class Piece {
@@ -62,7 +64,7 @@ class Piece {
     let currentPosition = this.getPosition();
     // TODO refactor this for loop
     for (let index = 0; index < amount; index++) {
-     const nextPosition = getForwardPosition(currentPosition)
+      const nextPosition = incForwardPosition(currentPosition)
      positions.push(nextPosition)
      currentPosition = nextPosition
     }
@@ -81,11 +83,25 @@ class Piece {
   }
 }
 
+
+
+export const isInsideBoard = (position: string) => {
+  return allPositions.some(each => each === position)
+}
+export const insideBoard = (positions: stringp[]) => {
+  return positions.filter(isInsideBoard)
+}
+
+const pipe = (...fns: any[]) => (initialValue: any) => fns.reduce((value, fn) => fn(value), initialValue)
+
 class Pawn extends Piece {
   isFirstMove = () => {
     // this is naive
     return this.initialPosition === this.piece.position;
   };
+  validMovePositions = (): string[] => {
+    return pipe(insideBoard)(this.movePositions())
+  }
   movePositions = () => {
     return this.isFirstMove() ? this.getForwardPositions(2) : this.getForwardPositions(1) ;
   };
