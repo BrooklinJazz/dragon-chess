@@ -45,6 +45,8 @@ const WhiteRow1: IPiece[] = row1.map((position, index) => {
 })
 
 // TODO create all pieces when needed
-export const [A2Pawn] = WhiteRow2
+export const [A2Pawn, B2Pawn] = WhiteRow2
+
+export const mockMove = (piece: IPiece, position: string) => ({...piece, position})
 
 export const WhitePieces: IPiece[] = [...WhiteRow2, ...WhiteRow1]

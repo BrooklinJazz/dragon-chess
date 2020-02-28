@@ -1,8 +1,8 @@
-const letters = "abcdefgh".split("");
-const numbers = [1, 2, 3, 4, 5, 6, 7, 8];
+export const positionLetters = "abcdefgh".split("");
+export const positionNumbers = [1, 2, 3, 4, 5, 6, 7, 8];
 
-export const positions = letters.reduce((total: string[], letter) => {
-  const column = numbers.map(num => letter + num);
+export const positions = positionLetters.reduce((total: string[], letter) => {
+  const column = positionNumbers.map(num => letter + num);
   return [...total, ...column];
 }, []);
 
