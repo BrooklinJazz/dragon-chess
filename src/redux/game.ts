@@ -1,10 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { BlackPieces } from "../constants/pieces";
+import { BlackPieces, WhitePieces } from "../constants/pieces";
 
 const gameSlice = createSlice({
   name: "game",
   initialState: {
-    pieces: BlackPieces
+    pieces: [...BlackPieces, ...WhitePieces]
   },
   reducers: {
     gameAction(state, action) {},

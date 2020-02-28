@@ -8,7 +8,7 @@ import { A1, positions, A8, A7 } from "../../constants/positions";
 import { primary, secondary } from "../../theme/colors";
 import { numberTypeFromPosition, colorFromPosition } from "../../helpers.ts";
 import { customRender } from "../../test-utils";
-import { BlackPieces, A7Pawn } from "../../constants/pieces";
+import { BlackPieces, A7Pawn, WhitePieces } from "../../constants/pieces";
 
 test("renders chess board", () => {
   const { getByTestId } = customRender(
@@ -53,4 +53,24 @@ test("renders Pawn Piece", () => {
   const a7 = getByTestId(A7)
   const a7Pawn = getByTestId(A7Pawn.id)
   expect(a7Pawn).toBeInTheDocument()
+});
+
+test("renders Black Pieces", () => {
+  const { getByTestId } = customRender(
+      <ChessBoard />
+  );
+  BlackPieces.forEach((each) => {
+    const piece = getByTestId(each.id)
+    expect(piece).toBeInTheDocument()
+  })
+});
+
+test("renders White Pieces", () => {
+  const { getByTestId } = customRender(
+      <ChessBoard />
+  );
+  WhitePieces.forEach((each) => {
+    const piece = getByTestId(each.id)
+    expect(piece).toBeInTheDocument()
+  })
 });
