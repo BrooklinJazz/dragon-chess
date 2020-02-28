@@ -1,0 +1,1 @@
+export const getById = (id) => cy.get(`[data-test-id="${id}"]`)

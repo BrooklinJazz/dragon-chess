@@ -3,7 +3,7 @@ import { render } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { ChessBoard } from ".";
 import store from "../../store";
-import { ChessBoardId } from "../../testids";
+import { ChessBoardId } from "../../constants/testids";
 import { A1, positions, A8, A7 } from "../../constants/positions";
 import { primary, secondary } from "../../theme/colors";
 import { numberTypeFromPosition, colorFromPosition } from "../../helpers.ts";

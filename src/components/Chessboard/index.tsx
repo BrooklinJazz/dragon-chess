@@ -1,8 +1,6 @@
-import React, { HtmlHTMLAttributes } from "react";
+import React from "react";
 import styled from "styled-components";
-import { ChessBoardId } from "../../testids";
-import { A1 } from "../../constants/positions";
-import { numberFromPosition } from "../../helpers.ts";
+import { ChessBoardId } from "../../constants/testids";
 import { Positions } from "../Positions";
 
 const Container = styled.div`
