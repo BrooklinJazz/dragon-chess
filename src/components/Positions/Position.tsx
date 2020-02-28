@@ -30,7 +30,7 @@ const PositionContainer = styled.div<IContainerProps>(
 
 export const Position = ({ position, ...restProps }: IPositionProps) => {
   const target = useRef<HTMLDivElement>(null)
-  const {height, width} = useDimensions(target)
+  const {height} = useDimensions(target)
   const piece = useSelector((state: AppState) => selectPiece(state, position))
   return (
     <PositionContainer data-testid={position} ref={target} position={position}>

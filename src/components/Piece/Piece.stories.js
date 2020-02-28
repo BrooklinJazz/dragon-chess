@@ -1,6 +1,5 @@
 import React from "react";
 import { PageContainer } from "../PageContainer";
-import styled from "styled-components";
 import { A7Pawn } from "../../constants/pieces";
 import { Piece } from ".";
 

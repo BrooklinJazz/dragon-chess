@@ -1,10 +1,10 @@
 import React from "react";
-import { render } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import { Provider } from "react-redux";
 import { ChessBoard } from ".";
 import store from "../../store";
 import { ChessBoardId } from "../../constants/testids";
-import { A1, positions, A8, A7 } from "../../constants/positions";
+import { A1, positions, A8, A7, A2 } from "../../constants/positions";
 import { primary, secondary } from "../../theme/colors";
 import { numberTypeFromPosition, colorFromPosition } from "../../helpers.ts";
 import { customRender } from "../../test-utils";
@@ -74,3 +74,12 @@ test("renders White Pieces", () => {
     expect(piece).toBeInTheDocument()
   })
 });
+
+// test("initiateMove", () => {
+//   const { getByTestId } = customRender(
+//       <ChessBoard />
+//   );
+//   const a2 = getByTestId(A2);
+//   fireEvent.click(a2)
+//   expect(a2).toHaveProperty("active");
+// });
