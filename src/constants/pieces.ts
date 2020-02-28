@@ -20,31 +20,31 @@ export interface IPiece {
     id: string;
 }
 
-export const A7Pawn: IPiece = {
-    id: "black-pawn-0",
-    type: Pieces.pawn,
-    player: "black",
-    position: "a7"
-}
-export const A2Pawn: IPiece = {
-    id: "white-pawn-0",
-    type: Pieces.pawn,
-    player: "white",
-    position: "a2"
-}
+export const createPiece = (player: "black" | "white", type: Pieces, position: string) => ({
+    id: `${player}-${type}-${position}`,
+    type,
+    player,
+    position
+})
 
-const BlackRow7: IPiece[] = row7.map((position, index) => ({player: "black", type: pawn, position, id: `black-${pawn}-${index}`}))
+const BlackRow7: IPiece[] = row7.map((position) => createPiece("black", Pieces.pawn, position))
 const BlackRow8: IPiece[] = row8.map((position, index) => {
     const type = pieceRow[index];
-    return ({player: "black", type, position, id: `black-${type}-${index}`})
+    return createPiece("black", type, position)
 })
+
+// TODO create all pieces when needed
+export const [A7Pawn] = BlackRow7
 
 export const BlackPieces: IPiece[] = [...BlackRow7, ...BlackRow8]
 
-const WhiteRow2: IPiece[] = row2.map((position, index) => ({player: "white", type: pawn, position, id: `white-${pawn}-${index}`}))
+const WhiteRow2: IPiece[] = row2.map((position, index) => createPiece("white", Pieces.pawn, position))
 const WhiteRow1: IPiece[] = row1.map((position, index) => {
     const type = pieceRow[pieceRow.length - 1 - index];
-    return ({player: "white", type, position, id: `white-${type}-${index}`})
+    return createPiece("white", type, position)
 })
+
+// TODO create all pieces when needed
+export const [A2Pawn] = WhiteRow2
 
 export const WhitePieces: IPiece[] = [...WhiteRow2, ...WhiteRow1]
