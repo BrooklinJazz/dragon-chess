@@ -3,8 +3,7 @@ import { Positions } from ".";
 import { PageContainer } from "../PageContainer";
 import { Position } from "./Position";
 import styled from "styled-components";
-import { A1, A2 } from "../../constants/positions";
-import { A7Pawn } from "../../constants/pieces";
+import { A1, A2, A7 } from "../../constants/positions";
 
 export default {
   title: "Positions",
@@ -17,7 +16,7 @@ const PositionContainer = styled.div`
   width: 50px;
 `;
 
-export const EvenPosition = () => (
+export const A1Rook = () => (
   <PageContainer>
     <PositionContainer>
       <Position position={A1} />
@@ -25,7 +24,7 @@ export const EvenPosition = () => (
   </PageContainer>
 );
 
-export const OddPosition = () => (
+export const A2Pawn = () => (
   <PageContainer>
     <PositionContainer>
       <Position position={A2}/>
@@ -33,10 +32,10 @@ export const OddPosition = () => (
   </PageContainer>
 );
 
-export const WithPawn = () => (
+export const A7Pawn = () => (
   <PageContainer>
     <PositionContainer>
-      <Position position={A1} piece={A7Pawn} />
+      <Position position={A7} />
     </PositionContainer>
   </PageContainer>
 );
