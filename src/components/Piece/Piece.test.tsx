@@ -1,5 +1,4 @@
 import React from "react";
-import { render } from "@testing-library/react";
 import { A7Pawn, A2Pawn } from "../../constants/pieces";
 import { Piece } from ".";
 import { customRender } from "../../test-utils";
