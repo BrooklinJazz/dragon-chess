@@ -1,16 +1,9 @@
-import { game, initiateMove, createGame, IGameState } from "./game";
+import { game, initiateMove } from "./game";
 import { A2Pawn, mockMove, A7Pawn } from "../constants/pieces";
 import { selectMovingPiece, selectValidPositions } from "./selectors";
 import { AppState } from "../store";
-import { configureStore } from "@reduxjs/toolkit";
 import { A1, A3, A4, A8 } from "../constants/positions";
-
-const configureMockStore = (mockState?: IGameState) =>
-  configureStore({
-    reducer: {
-      game: createGame(mockState).reducer
-    }
-  });
+import { configureMockStore } from "./configureMockStore";
 
 describe("initiate game _ empty board", () => {
   let store: any;

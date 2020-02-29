@@ -3,7 +3,7 @@ import { ChessBoardId } from "../../src/constants/testids";
 import { A2Pawn } from "../../src/constants/pieces";
 import { A3, A4 } from "../../src/constants/positions";
 
-const getById = (id: string) => cy.get(`[data-testid="${id}"]`)
+const getById = (id) => cy.get(`[data-testid="${id}"]`)
 describe("ChessBoard Dev", () => {
   it("Renders the Chessboard", () => {
     cy.visit(DevRoutes.CHESSBOARD);
@@ -12,9 +12,7 @@ describe("ChessBoard Dev", () => {
   it("play example game", () => {
     cy.visit(DevRoutes.CHESSBOARD);
     getById(A2Pawn.id).click()
-    // @ts-ignore
-    getById(A3).its('validPosition').should('be.true')
-    // @ts-ignore
-    getById(A4).its('validPosition').should('be.true')
+    getById(A3).should("not.be.disabled")
+    getById(A4).should("not.be.disabled")
   });
 });
