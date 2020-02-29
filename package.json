@@ -37,7 +37,8 @@
     "build-storybook": "build-storybook -s public",
     "cy": "cypress open",
     "cy:run": "cypress run",
-    "cy:record": "cypress run --config video=true"
+    "cy:record": "cypress run --config video=true",
+    "cy:spec": "cypress run --spec 'cypress/integration/dev-chessboard.spec.ts'"
   },
   "eslintConfig": {
     "extends": "react-app"
