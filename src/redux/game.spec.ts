@@ -1,14 +1,14 @@
-import { game, initiateMove } from "./game";
+import { game, initiateMove, movePiece } from "./game";
 import { A2Pawn, mockMove, A7Pawn } from "../constants/pieces";
-import { selectMovingPiece, selectValidPositions } from "./selectors";
+import { selectMovingPiece, selectValidPositions, selectPiece } from "./selectors";
 import { AppState } from "../store";
 import { A1, A3, A4, A8 } from "../constants/positions";
 import { configureMockStore } from "./configureMockStore";
 
-describe("initiate game _ empty board", () => {
+describe("initiateMove", () => {
   let store: any;
   beforeEach(() => {
-    store = configureMockStore({pieces: []});
+    store = configureMockStore({ pieces: [] });
   });
 
   it("initiateMove _ A2 Pawn", () => {
@@ -36,7 +36,7 @@ describe("initiate game _ empty board", () => {
       pieces: [A2Pawn, A3Pawn],
       movingPiece: A2Pawn
     };
-    store = configureMockStore(mockState)
+    store = configureMockStore(mockState);
 
     expect(selectValidPositions(store.getState())).toEqual([]);
   });
@@ -47,7 +47,24 @@ describe("initiate game _ empty board", () => {
       pieces: [A2Pawn, A4Pawn],
       movingPiece: A2Pawn
     };
-    store = configureMockStore(mockState)
+    store = configureMockStore(mockState);
     expect(selectValidPositions(store.getState())).toEqual([A3]);
+  });
+});
+
+describe("movePiece game", () => {
+  let store: any;
+  beforeEach(() => {
+    store = configureMockStore({ pieces: [] });
+  });
+
+  it("movePiece _ A2 Pawn _ A7Pawn in A4 Position", () => {
+    const mockState = {
+      pieces: [A2Pawn],
+      movingPiece: A2Pawn
+    };
+    store = configureMockStore(mockState);
+    store.dispatch(movePiece({ position: A3 }));
+    expect(selectPiece(store.getState(), A3)).toEqual({...A2Pawn, position: A3})
   });
 });

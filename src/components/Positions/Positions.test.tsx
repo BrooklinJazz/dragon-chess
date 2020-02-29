@@ -61,7 +61,7 @@ test("moving A2Pawn, A7Pawn in A4Position _ enabled A3 position _ disabled A4 po
   expectCanNotMoveTo(A4Position)
 })
 
-test.only("moving A2Pawn, A7Pawn in A4Position _ enabled A3 position _ movePawn to A3", () => {
+xtest("moving A2Pawn, A7Pawn in A4Position _ enabled A3 position _ movePawn to A3", () => {
 
   const mockState = {
     movingPiece: A2Pawn,
