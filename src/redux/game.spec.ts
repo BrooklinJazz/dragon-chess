@@ -2,7 +2,7 @@ import { game, initiateMove, movePiece } from "./game";
 import { A2Pawn, mockMove, A7Pawn } from "../constants/pieces";
 import { selectMovingPiece, selectValidPositions, selectPiece } from "./selectors";
 import { AppState } from "../store";
-import { A1, A3, A4, A8 } from "../constants/positions";
+import { A1, A3, A4, A8, A6, A5 } from "../constants/positions";
 import { configureMockStore } from "./configureMockStore";
 
 describe("initiateMove", () => {
@@ -52,7 +52,7 @@ describe("initiateMove", () => {
   });
 });
 
-describe("movePiece game", () => {
+describe("movePiece", () => {
   let store: any;
   beforeEach(() => {
     store = configureMockStore({ pieces: [] });
@@ -66,5 +66,11 @@ describe("movePiece game", () => {
     store = configureMockStore(mockState);
     store.dispatch(movePiece({ position: A3 }));
     expect(selectPiece(store.getState(), A3)).toEqual({...A2Pawn, position: A3})
+  });
+
+  it("initiateMove _ A7 Pawn", () => {
+    store.dispatch(initiateMove({ piece: A7Pawn }));
+    expect(selectMovingPiece(store.getState())).toEqual(A7Pawn);
+    expect(selectValidPositions(store.getState())).toEqual([A6, A5]);
   });
 });

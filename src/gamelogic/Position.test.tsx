@@ -45,3 +45,15 @@ test("Position .left", () => {
     expect(h1.left().save()).toEqual(A1)
     expect(h1.left().save()).toEqual(A1)
 })
+
+test("Position .fwd black", () => {
+    const a8 = new Position(A8, "black")
+    expect(a8.fwd().save()).toEqual(A7)
+    expect(a8.fwd().save()).toEqual(A6)
+    expect(a8.fwd().save()).toEqual(A5)
+    expect(a8.fwd().save()).toEqual(A4)
+    expect(a8.fwd().save()).toEqual(A3)
+    expect(a8.fwd().save()).toEqual(A2)
+    expect(a8.fwd().save()).toEqual(A1)
+    expect(a8.fwd().save()).toEqual(A1)
+})

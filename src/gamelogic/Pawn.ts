@@ -1,10 +1,10 @@
 import { Piece } from "./Piece";
-import { tsThisType } from "@babel/types";
 import { pipe } from "../helpers.ts/pipe";
 export class Pawn extends Piece {
   isFirstMove = () => {
-    return this.position.position() === this.piece.initialPosition;
+    return this.position.value() === this.piece.initialPosition;
   };
+  // TODO: make filterOutBlocked cleaner
   filterOutBlocked = (positions: string[]) => {
     const [move1, move2] = positions;
     if (move1 && this.allTakenPositions.includes(move1)) {
@@ -18,9 +18,12 @@ export class Pawn extends Piece {
     }
     return positions;
   };
+  player = () => this.piece.player
+  up = () => this.position.up()
+  down = () => this.position.down()
+  fwd = () => this.position.fwd()
   movePositions = (): string[] => {
-    console.warn(this.position.value(), this.position.up().value())
-    return this.isFirstMove() ? [this.position.up().value(), this.position.up().up().value()] : [this.position.up().value()];
+    return this.isFirstMove() ? [this.fwd().value(), this.fwd().fwd().value()] : [this.fwd().value()];
   };
   validMovePositions = (): string[] => {
     return pipe(

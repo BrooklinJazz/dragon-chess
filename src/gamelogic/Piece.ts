@@ -16,7 +16,7 @@ export class Piece {
     this.allTakenPositions = allTakenPositions.filter(
       each => each !== piece.position
     );
-    this.position = new Position(piece.position)
+    this.position = new Position(piece.position, piece.player)
   }
   filterInsideBoard = (positions: string[]) =>
     positions.filter(position => allPositions.some(each => each === position));
