@@ -17,6 +17,7 @@ export interface IPiece {
     type: Pieces;
     player: "white" | "black";
     position: string;
+    initialPosition: string;
     id: string;
 }
 
@@ -24,7 +25,8 @@ export const createPiece = (player: "black" | "white", type: Pieces, position: s
     id: `${player}-${type}-${position}`,
     type,
     player,
-    position
+    position,
+    initialPosition: position
 })
 
 const BlackRow7: IPiece[] = row7.map((position) => createPiece("black", Pieces.pawn, position))
