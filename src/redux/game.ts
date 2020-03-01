@@ -21,19 +21,25 @@ export const createGame = (mockState?: IGameState) =>
     name: "game",
     initialState: mockState || (initialGameState as IGameState),
     reducers: {
-      initiateMove: (state, { payload }: IPayload<{ piece: IPiece }>) => {
+      initiateMove: (
+        state,
+        { payload: { piece } }: IPayload<{ piece: IPiece }>
+      ) => {
         return {
           ...state,
-          movingPiece: payload.piece
+          movingPiece: piece
         };
       },
       movePiece: (
         state,
         { payload: { position } }: IPayload<{ position: string }>
       ) => {
-        const validPositions = selectValidPositions({game: state})
-        if (!state.movingPiece || !validPositions.some(each => each === position)) {
-          throw new Error("movePiece called without moving piece or invalid position");
+        const validPositions = selectValidPositions({ game: state });
+        if (
+          !state.movingPiece ||
+          !validPositions.some(each => each === position)
+        ) {
+          return state;
         }
         return {
           ...state,

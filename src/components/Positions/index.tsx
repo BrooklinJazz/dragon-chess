@@ -1,7 +1,7 @@
 import React from "react";
 import {  ColumnArrays, positions } from "../../constants/positions";
 import { Position } from "./Position";
-import { selectValidPositions } from "../../redux/selectors";
+import { selectValidPositions, selectMovingPiece } from "../../redux/selectors";
 import { useSelector } from "react-redux";
 
 // grab first element from last array
@@ -12,7 +12,8 @@ const positionsForBoard = ColumnArrays.reduce((total: string[], each) => {
 }, [])
 
 export const Positions = () => {
-    const validPositions = useSelector(selectValidPositions)
-    const renderPosition = (position: string) => (<Position key={position} disabled={!validPositions.some(each => each === position)} position={position} data-testid={position} />);
-    return <>{positionsForBoard.map(renderPosition)}</>;
+    const movingPiece = useSelector(selectMovingPiece)
+    return (<>{
+        positionsForBoard.map(position => <Position key={position} position={position} data-testid={position} />)
+    }</>);
 };

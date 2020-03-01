@@ -6,7 +6,7 @@ import {
 } from "@fortawesome/react-fontawesome";
 import { faChessPawn, faChessRook, faChessKnight, faChessBishop, faChessQueen, faChessKing } from "@fortawesome/free-solid-svg-icons";
 
-interface IPieceProps {
+interface IPieceProps extends React.HtmlHTMLAttributes<HTMLDivElement> {
   piece: IPiece;
   height?: number;
 }
@@ -30,13 +30,15 @@ const iconFromPiece = (piece: IPiece) => {
   }
 };
 
+export const Piece = ({ piece, ...restProps }: IPieceProps) => (
+  <PieceIcon {...restProps} piece={piece}/>
+);
+
 const PieceIcon: any = styled(FontAwesomeIcon).attrs((props: IPieceProps) => ({
   icon: iconFromPiece(props.piece),
 }))((props: IPieceProps) => `
   font-size: ${(props.height || 25) - 6}px;
-  color: ${props.piece.player}
+  color: ${props.piece.player};
 `)
 
-export const Piece = ({ piece, ...restProps }: IPieceProps) => (
-  <PieceIcon {...restProps} piece={piece}/>
-);
+

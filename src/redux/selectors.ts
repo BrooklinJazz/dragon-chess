@@ -16,8 +16,9 @@ export const selectAllTakenPositions = createSelector(
 export const selectValidPositions = createSelector(
   selectMovingPiece,
   selectAllTakenPositions,
-  (movingPiece, takenPositions) =>
-    movingPiece ? PieceFactory.fromPiece(movingPiece, takenPositions).validMovePositions() : []
+  (movingPiece, takenPositions) => {
+    return movingPiece ? PieceFactory.fromPiece(movingPiece, takenPositions).validMovePositions() : []
+  }
 );
 
 class PieceFactory {
@@ -125,12 +126,13 @@ class Pawn extends Piece {
   };
 
   filterOutBlocked = (positions: string[]) => {
-    const blocked = this.allTakenPositions.reduce((total: string[], each: string) => {
-      const fwdPositions = this.allForwardPositions(each)
-      const removeDuplicates = fwdPositions.filter(each => !total.some(position => each === position))
-      return [...total, ...removeDuplicates]
-    }, [])
-    return positions.filter(position => !blocked.some(each => each === position))
+    const [move1, move2] = positions
+    if (this.allTakenPositions.includes(move1)) {
+      return []
+    } else if (this.allTakenPositions.includes(move2)) {
+      return [move1]
+    }
+    return [move1, move2]
   }
 
   movePositions = () => {

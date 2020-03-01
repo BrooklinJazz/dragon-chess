@@ -4,9 +4,10 @@ import { colorFromPosition } from "../../helpers.ts";
 import { IPiece } from "../../constants/pieces";
 import { Piece } from "../Piece";
 import { useDimensions } from "../../hooks/useDimensions";
-import { useSelector } from "react-redux";
-import { selectPiece } from "../../redux/selectors";
+import { useSelector, useDispatch } from "react-redux";
+import { selectPiece, selectMovingPiece, selectValidPositions } from "../../redux/selectors";
 import { AppState } from "../../store";
+import { movePiece, initiateMove } from "../../redux/game";
 
 interface IContainerProps {
   position: string;
@@ -29,12 +30,27 @@ const PositionContainer = styled.div<IContainerProps>(
   `
 );
 
-export const Position = ({ position, disabled = true }: IPositionProps) => {
+export const Position = ({ position }: IPositionProps) => {
   const target = useRef<HTMLDivElement>(null)
   const {height} = useDimensions(target)
   const piece = useSelector((state: AppState) => selectPiece(state, position))
+  const movingPiece = useSelector(selectMovingPiece)
+  const dispatch = useDispatch()
+  const handleClick = () => movingPiece ? handleMove() : requestMove()
+  const validPositions = useSelector(selectValidPositions)
+  const isValidMove = validPositions.some(each => each === position) && movingPiece
+  const handleMove = () => {
+    if (isValidMove) {
+      dispatch(movePiece({position}))
+    }
+  }
+  const requestMove = () => {
+    if (!movingPiece && piece) {
+      dispatch(initiateMove({piece}))
+    }
+  }
   return (
-    <PositionContainer disabled={disabled} data-testid={position} ref={target} position={position}>
+    <PositionContainer onClick={handleClick} disabled={!isValidMove} data-testid={position} ref={target} position={position}>
       {piece && <Piece height={height} piece={piece} data-testid={piece.id} />}
     </PositionContainer>
   );
