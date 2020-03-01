@@ -108,7 +108,7 @@ test("moving A2Pawn, A7Pawn in A4Position _ enabled A3 position _ movePawn to A3
   expect(a3Piece).toEqual({...A2Pawn, position: A3})
 })
 
-test.only("initiateMove and movePiece _ fresh board", () => {
+test("initiateMove and movePiece _ fresh board", () => {
   const store = configureMockStore();
 
   const { getByTestId } = render(
