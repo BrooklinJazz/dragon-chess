@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BlackPieces, WhitePieces, IPiece } from "../constants/pieces";
-import { selectValidPositions } from "./selectors";
+import { Game } from "../gamelogic/Game";
 
 interface IPayload<T> {
   payload: T;
@@ -21,34 +21,10 @@ export const createGame = (mockState?: IGameState) =>
     name: "game",
     initialState: mockState || (initialGameState as IGameState),
     reducers: {
-      initiateMove: (
-        state,
-        { payload: { piece } }: IPayload<{ piece: IPiece }>
-      ) => {
-        return {
-          ...state,
-          movingPiece: piece
-        };
-      },
-      movePiece: (
-        state,
-        { payload: { position } }: IPayload<{ position: string }>
-      ) => {
-        const validPositions = selectValidPositions({ game: state });
-        if (
-          !state.movingPiece ||
-          !validPositions.some(each => each === position)
-        ) {
-          return state;
-        }
-        return {
-          ...state,
-          pieces: state.pieces.map(each =>
-            each.id === state.movingPiece!.id ? { ...each, position } : each
-          ),
-          movingPiece: undefined
-        };
-      }
+      initiateMove: (state, { payload }: IPayload<{ piece: IPiece }>) =>
+        new Game(state).initiateMove(payload),
+      movePiece: (state, { payload }: IPayload<{ position: string }>) =>
+        new Game(state).movePiece(payload)
     }
   });
 
