@@ -23,4 +23,11 @@ export class Game {
       movingPiece: undefined
     };
   };
+
+  cancelMove = () => {
+    return {
+      ...this.state,
+      movingPiece: undefined
+    }
+  }
 }

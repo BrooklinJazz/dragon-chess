@@ -24,7 +24,9 @@ export const createGame = (mockState?: IGameState) =>
       initiateMove: (state, { payload }: IPayload<{ piece: IPiece }>) =>
         new Game(state).initiateMove(payload),
       movePiece: (state, { payload }: IPayload<{ position: string }>) =>
-        new Game(state).movePiece(payload)
+        new Game(state).movePiece(payload),
+      cancelMove: (state) =>
+        new Game(state).cancelMove()
     }
   });
 
@@ -32,6 +34,6 @@ export const createGame = (mockState?: IGameState) =>
 const { actions, reducer } = createGame();
 
 // Extract and export each action creator by name
-export const { initiateMove, movePiece } = actions;
+export const { initiateMove, movePiece, cancelMove } = actions;
 // Export the reducer, either as a default or named export
 export const game = reducer;
