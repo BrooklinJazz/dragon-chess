@@ -90,9 +90,5 @@ describe("cancelMove", () => {
     expect(selectMovingPiece(store.getState())).toBeUndefined()
   });
 
-  it("initiateMove _ A7 Pawn", () => {
-    store.dispatch(initiateMove({ piece: A7Pawn }));
-    expect(selectMovingPiece(store.getState())).toEqual(A7Pawn);
-    expect(selectValidPositions(store.getState())).toEqual([A6, A5]);
-  });
+
 });

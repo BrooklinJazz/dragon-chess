@@ -5,7 +5,7 @@ import { render, fireEvent } from "@testing-library/react";
 import { Provider, useSelector } from "react-redux";
 import { Positions } from ".";
 import { selectValidPositions, selectPiece, selectMovingPiece } from "../../redux/selectors";
-import { A3, A4, A2 } from "../../constants/positions";
+import { A3, A4, A2, B2, B3 } from "../../constants/positions";
 import { customRender } from "../../test-utils";
 import { AppState } from "../../store";
 
@@ -126,4 +126,35 @@ test("initiateMove and movePiece _ A2Pawn _ fresh board", () => {
   const a3Piece = selectPiece(store.getState(), A3)
   expect(a2Piece).toBeUndefined()
   expect(a3Piece).toEqual({...A2Pawn, position: A3})
+})
+
+test("initiateMove twice", () => {
+  const store = configureMockStore();
+
+  const { getByTestId } = render(
+    <Provider store={store}>
+      <Positions />
+    </Provider>
+  );
+  const A2Position = getByTestId(A2);
+  const B2Position = getByTestId(B2);
+  fireEvent.click(A2Position)
+  fireEvent.click(B2Position)
+  const b2Piece = selectPiece(store.getState(), B2)
+  expect(selectMovingPiece(store.getState())).toEqual(b2Piece)
+})
+
+test("initiateMove _ cancelMove", () => {
+  const store = configureMockStore();
+
+  const { getByTestId } = render(
+    <Provider store={store}>
+      <Positions />
+    </Provider>
+  );
+  const A2Position = getByTestId(A2);
+  const B3Position = getByTestId(B3);
+  fireEvent.click(A2Position)
+  fireEvent.click(B3Position)
+  expect(selectMovingPiece(store.getState())).toBeUndefined()
 })
