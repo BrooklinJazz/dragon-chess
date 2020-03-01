@@ -15,6 +15,6 @@ export class Pawn extends Piece {
     return positions;
   };
   movePositions = () => {
-    return this.isFirstMove() ? this.getForwardPositions(2) : this.getForwardPositions(1);
+    return this.isFirstMove() ? [this.position.up(), this.position.up()] : [this.position.up()];
   };
 }

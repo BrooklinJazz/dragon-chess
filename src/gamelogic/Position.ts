@@ -10,17 +10,20 @@ export class Position {
   }
   position = () => this.letter + this.number
   letterIndex = () => positionLetters.indexOf(this.letter)
-  numberIndex = () => positionNumbers.indexOf(this.number)
   right = () => {
-    this.letter = positionLetters[Math.min(this.letterIndex() + 1, 8)]
+    this.letter = positionLetters[Math.min(this.letterIndex() + 1, 7)]
+    return this.position()
   }
   left = () => {
     this.letter = positionLetters[Math.max(this.letterIndex() - 1, 0)]
+    return this.position()
   }
   up = () => {
-    this.number = positionNumbers[Math.max(this.numberIndex() + 1, 8)]
+    this.number = Math.min(this.number + 1, 8)
+    return this.position()
   }
   down = () => {
-    this.number = positionNumbers[Math.max(this.numberIndex() - 1, 0)]
+    this.number = Math.max(this.number - 1, 1)
+    return this.position()
   }
 }

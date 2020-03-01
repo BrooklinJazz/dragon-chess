@@ -11,7 +11,7 @@ describe("initiateMove", () => {
     store = configureMockStore({ pieces: [] });
   });
 
-  it("initiateMove _ A2 Pawn", () => {
+  it.only("initiateMove _ A2 Pawn", () => {
     store.dispatch(initiateMove({ piece: A2Pawn }));
     expect(selectMovingPiece(store.getState())).toEqual(A2Pawn);
     expect(selectValidPositions(store.getState())).toEqual([A3, A4]);
