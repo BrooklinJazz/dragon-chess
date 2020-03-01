@@ -22,7 +22,9 @@ export const colorFromPosition = (position: string) => {
     case "odd":
       return secondary;
     default:
-        throw new Error(`colorFromPosition called with invalid position ${position}`)
+      throw new Error(
+        `colorFromPosition called with invalid position ${position}`
+      );
   }
 };
 
