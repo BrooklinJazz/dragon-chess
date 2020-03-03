@@ -8,6 +8,7 @@ import { selectValidPositions, selectPiece, selectMovingPiece } from "../../redu
 import { A3, A4, A2, B2, B3 } from "../../constants/positions";
 import { customRender } from "../../test-utils";
 import { AppState } from "../../store";
+import { initialGameState } from "../../redux/game";
 
 const expectCanMoveTo = (position: HTMLElement) => {
     expect(position.hasAttribute("disabled")).toBeFalsy()
@@ -90,6 +91,7 @@ test("moving A2Pawn, A7Pawn in A4Position _ enabled A3 position _ disabled A4 po
 test("moving A2Pawn, A7Pawn in A4Position _ enabled A3 position _ movePawn to A3", () => {
 
   const mockState = {
+    ...initialGameState,
     movingPiece: A2Pawn,
     pieces: [A2Pawn]
   };

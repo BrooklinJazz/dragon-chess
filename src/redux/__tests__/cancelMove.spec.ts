@@ -1,7 +1,7 @@
-import { cancelMove, IGameState, initialGameState } from "./game";
-import { A2Pawn, A7Pawn } from "../constants/pieces";
-import { selectMovingPiece } from "./selectors";
-import { configureMockStore } from "./configureMockStore";
+import { cancelMove, IGameState, initialGameState } from "../game";
+import { A2Pawn, A7Pawn } from "../../constants/pieces";
+import { selectMovingPiece } from "../selectors";
+import { configureMockStore } from "../configureMockStore";
 describe("cancelMove", () => {
   let store: any;
   beforeEach(() => {

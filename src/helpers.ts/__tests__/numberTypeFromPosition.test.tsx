@@ -1,5 +1,5 @@
-import { numberTypeFromPosition } from "./index";
-import { A1, A2, B1, B2 } from "../constants/positions";
+import { numberTypeFromPosition } from "../index";
+import { A1, A2, B1, B2 } from "../../constants/positions";
 
 test("a1", () => {
   expect(numberTypeFromPosition(A1)).toEqual("even");

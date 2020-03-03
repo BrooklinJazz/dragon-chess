@@ -1,8 +1,8 @@
-import { initiateMove, IGameState, initialGameState } from "./game";
-import { A2Pawn, mockMove, A7Pawn } from "../constants/pieces";
-import { selectMovingPiece, selectValidPositions } from "./selectors";
-import { A3, A4, A8, A6, A5 } from "../constants/positions";
-import { configureMockStore } from "./configureMockStore";
+import { initiateMove, IGameState, initialGameState } from "../game";
+import { A2Pawn, mockMove, A7Pawn } from "../../constants/pieces";
+import { selectMovingPiece, selectValidPositions } from "../selectors";
+import { A3, A4, A8, A6, A5 } from "../../constants/positions";
+import { configureMockStore } from "../configureMockStore";
 describe("initiateMove", () => {
   let store: any;
   beforeEach(() => {

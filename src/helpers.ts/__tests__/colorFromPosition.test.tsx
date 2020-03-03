@@ -1,4 +1,4 @@
-import { colorFromPosition, numberFromPosition, numberTypeFromPosition } from "./index";
+import { colorFromPosition, numberFromPosition, numberTypeFromPosition } from "../index";
 import {
   A1,
   A2,
@@ -11,8 +11,8 @@ import {
   GColumn,
   HColumn,
   ColumnArrays
-} from "../constants/positions";
-import { primary, secondary } from "../theme/colors";
+} from "../../constants/positions";
+import { primary, secondary } from "../../theme/colors";
 
 test("a1 _ primary", () => {
   expect(colorFromPosition(A1)).toEqual(primary);
