@@ -7,7 +7,10 @@ interface IPayload<T> {
 }
 
 // TODO replace "white" and "black" to use this type
-export type Player = "black" | "white"
+export enum Player {
+  black = "black",
+  white = "white"
+}
 
 export interface IGameState {
   pieces: IPiece[];
@@ -19,8 +22,8 @@ export interface IGameState {
 export const initialGameState: IGameState = {
   pieces: [...BlackPieces, ...WhitePieces],
   movingPiece: undefined,
-  player: "white",
-  turn: "white"
+  player: Player.white,
+  turn: Player.white
 };
 
 export const createGame = (mockState?: IGameState) =>

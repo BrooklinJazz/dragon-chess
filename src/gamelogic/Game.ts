@@ -1,6 +1,6 @@
 import { IPiece } from "../constants/pieces";
 import { selectValidPositions } from "../redux/selectors";
-import { IGameState } from "../redux/game";
+import { IGameState, Player } from "../redux/game";
 export class Game {
   public state: IGameState;
   constructor(state: IGameState) {
@@ -36,7 +36,8 @@ export class Game {
     pieces: this.state.pieces.map(each =>
       each.id === this.state.movingPiece!.id ? { ...each, position } : each
     ),
-    movingPiece: undefined
+    movingPiece: undefined,
+    turn: this.state.turn === Player.white ? Player.black : Player.white
   });
 
   cancelMove = () => this.exec(() => this.cancelMoveImpl());

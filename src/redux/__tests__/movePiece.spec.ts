@@ -1,4 +1,4 @@
-import { movePiece, IGameState, initialGameState } from "../game";
+import { movePiece, IGameState, initialGameState, Player } from "../game";
 import { A2Pawn, A7Pawn } from "../../constants/pieces";
 import { selectMovingPiece, selectPiece } from "../selectors";
 import { A3, A6 } from "../../constants/positions";
@@ -24,8 +24,8 @@ describe("movePiece", () => {
       ...initialGameState,
       pieces: [A7Pawn],
       movingPiece: A7Pawn,
-      player: "white",
-      turn: "black"
+      player: Player.white,
+      turn: Player.black
     };
     store = configureMockStore(mockState);
     store.dispatch(movePiece({ position: A6 }));

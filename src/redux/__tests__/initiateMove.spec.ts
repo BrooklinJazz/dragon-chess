@@ -1,4 +1,4 @@
-import { initiateMove, IGameState, initialGameState } from "../game";
+import { initiateMove, IGameState, initialGameState, Player } from "../game";
 import { A2Pawn, mockMove, A7Pawn } from "../../constants/pieces";
 import { selectMovingPiece, selectValidPositions } from "../selectors";
 import { A3, A4, A8, A6, A5 } from "../../constants/positions";
@@ -51,8 +51,8 @@ describe("initiateMove", () => {
       ...initialGameState,
       pieces: [A2Pawn],
       movingPiece: undefined,
-      player: "white",
-      turn: "black"
+      player: Player.white,
+      turn: Player.black
     };
     store = configureMockStore(mockState);
     store.dispatch(initiateMove({ piece: A2Pawn }));
@@ -63,8 +63,8 @@ describe("initiateMove", () => {
       ...initialGameState,
       pieces: [A2Pawn],
       movingPiece: undefined,
-      player: "black",
-      turn: "black"
+      player: Player.black,
+      turn: Player.black
     };
     store.dispatch(initiateMove({ piece: A7Pawn }));
     expect(selectMovingPiece(store.getState())).toEqual(A7Pawn);
@@ -75,8 +75,8 @@ describe("initiateMove", () => {
       ...initialGameState,
       pieces: [A7Pawn],
       movingPiece: undefined,
-      player: "black",
-      turn: "white"
+      player: Player.black,
+      turn: Player.white
     };
     store = configureMockStore(mockState);
     store.dispatch(initiateMove({ piece: A7Pawn }));
