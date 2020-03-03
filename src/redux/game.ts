@@ -6,14 +6,21 @@ interface IPayload<T> {
   payload: T;
 }
 
+// TODO replace "white" and "black" to use this type
+export type Player = "black" | "white"
+
 export interface IGameState {
   pieces: IPiece[];
   movingPiece?: IPiece;
+  player: Player,
+  turn: Player
 }
 
-export const initialGameState = {
+export const initialGameState: IGameState = {
   pieces: [...BlackPieces, ...WhitePieces],
-  movingPiece: undefined
+  movingPiece: undefined,
+  player: "white",
+  turn: "white"
 };
 
 export const createGame = (mockState?: IGameState) =>
