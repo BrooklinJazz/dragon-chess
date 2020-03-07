@@ -61,11 +61,12 @@ describe("initiateMove", () => {
   it("initiateMove _ A7 Pawn _ black player _ black turn", () => {
     const mockState: IGameState = {
       ...initialGameState,
-      pieces: [A2Pawn],
+      pieces: [A2Pawn, A7Pawn],
       movingPiece: undefined,
       player: Player.black,
       turn: Player.black
     };
+    store =  configureMockStore(mockState)
     store.dispatch(initiateMove({ piece: A7Pawn }));
     expect(selectMovingPiece(store.getState())).toEqual(A7Pawn);
     expect(selectValidPositions(store.getState())).toEqual([A6, A5]);
@@ -76,6 +77,18 @@ describe("initiateMove", () => {
       pieces: [A7Pawn],
       movingPiece: undefined,
       player: Player.black,
+      turn: Player.white
+    };
+    store = configureMockStore(mockState);
+    store.dispatch(initiateMove({ piece: A7Pawn }));
+    expect(selectMovingPiece(store.getState())).toBeUndefined();
+  });
+  it("initiateMove _ A7 Pawn _ white player _ white turn", () => {
+    const mockState: IGameState = {
+      ...initialGameState,
+      pieces: [A7Pawn],
+      movingPiece: undefined,
+      player: Player.white,
       turn: Player.white
     };
     store = configureMockStore(mockState);

@@ -8,7 +8,7 @@ import { selectValidPositions, selectPiece, selectMovingPiece } from "../../redu
 import { A3, A4, A2, B2, B3 } from "../../constants/positions";
 import { customRender } from "../../test-utils";
 import { AppState } from "../../store";
-import { initialGameState } from "../../redux/game";
+import { initialGameState, Player } from "../../redux/game";
 
 const expectCanMoveTo = (position: HTMLElement) => {
     expect(position.hasAttribute("disabled")).toBeFalsy()
@@ -32,8 +32,11 @@ test("disabled positions _ no moving piece", () => {
 test("disabled positions _ no moving piece _ initiate move", () => {
   const mockState = {
     movingPiece: undefined,
-    pieces: [A2Pawn]
+    pieces: [A2Pawn],
+    player: Player.white,
+    turn: Player.white
   };
+
   const store = configureMockStore(mockState);
 
   const { getByTestId } = render(

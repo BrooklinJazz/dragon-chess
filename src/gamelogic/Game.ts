@@ -15,7 +15,7 @@ export class Game {
   };
 
   initiateMove = ({ piece }: { piece: IPiece }) =>
-    this.exec(() => this.initiateMoveImpl(piece));
+    this.exec(() => this.initiateMoveImpl(piece), this.state.player === piece.player);
 
   initiateMoveImpl = (piece: IPiece) => ({
     ...this.state,

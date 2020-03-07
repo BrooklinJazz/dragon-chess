@@ -1,4 +1,5 @@
 import { row7, row8, row1, row2 } from "./positions"
+import { Player } from "../redux/game"
 
 export enum Pieces {
     pawn = "pawn",
@@ -15,13 +16,13 @@ const pieceRow = [rook, knight, bishop, queen, king, bishop, knight, rook]
 
 export interface IPiece {
     type: Pieces;
-    player: "white" | "black";
+    player: Player;
     position: string;
     initialPosition: string;
     id: string;
 }
 
-export const createPiece = (player: "black" | "white", type: Pieces, position: string) => ({
+export const createPiece = (player: Player, type: Pieces, position: string) => ({
     id: `${player}-${type}-${position}`,
     type,
     player,
