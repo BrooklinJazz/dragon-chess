@@ -1,4 +1,5 @@
-import { cancelMove, IGameState, initialGameState } from "../game";
+import { cancelMove, initialGameState } from "../game";
+import { IGameState } from "../types";
 import { A2Pawn, A7Pawn } from "../../constants/pieces";
 import { selectMovingPiece } from "../selectors";
 import { configureMockStore } from "../configureMockStore";

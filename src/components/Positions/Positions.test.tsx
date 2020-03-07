@@ -2,13 +2,13 @@ import React from "react";
 import { configureMockStore } from "../../redux/configureMockStore";
 import { A2Pawn, mockMove, A7Pawn } from "../../constants/pieces";
 import { render, fireEvent } from "@testing-library/react";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 import { Positions } from ".";
 import { selectValidPositions, selectPiece, selectMovingPiece } from "../../redux/selectors";
 import { A3, A4, A2, B2, B3 } from "../../constants/positions";
 import { customRender } from "../../test-utils";
-import { AppState } from "../../store";
-import { initialGameState, Player } from "../../redux/game";
+import { initialGameState } from "../../redux/game";
+import { Player } from "../../redux/types";
 
 const expectCanMoveTo = (position: HTMLElement) => {
     expect(position.hasAttribute("disabled")).toBeFalsy()

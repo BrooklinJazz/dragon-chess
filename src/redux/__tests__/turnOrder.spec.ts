@@ -1,5 +1,6 @@
 import { configureMockStore } from "../configureMockStore";
-import { initiateMove, movePiece, Player, initialGameState } from "../game";
+import { initiateMove, movePiece, initialGameState } from "../game";
+import { Player } from "../types";
 import {
   selectMovingPiece,
   selectValidPositions,

@@ -1,4 +1,6 @@
-import { movePiece, IGameState, initialGameState, Player } from "../game";
+import { movePiece, initialGameState } from "../game";
+import { IGameState } from "../types";
+import { Player } from "../types";
 import { A2Pawn, A7Pawn } from "../../constants/pieces";
 import { selectMovingPiece, selectPiece } from "../selectors";
 import { A3, A6 } from "../../constants/positions";

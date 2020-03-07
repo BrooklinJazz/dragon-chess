@@ -1,23 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { BlackPieces, WhitePieces, IPiece } from "../constants/pieces";
 import { Game } from "../gamelogic/Game";
-
-interface IPayload<T> {
-  payload: T;
-}
-
-// TODO replace "white" and "black" to use this type
-export enum Player {
-  black = "black",
-  white = "white"
-}
-
-export interface IGameState {
-  pieces: IPiece[];
-  movingPiece?: IPiece;
-  player: Player,
-  turn: Player
-}
+import { Player, IPayload } from "./types";
+import { IGameState } from "./types";
 
 export const initialGameState: IGameState = {
   pieces: [...BlackPieces, ...WhitePieces],
@@ -35,8 +20,7 @@ export const createGame = (mockState?: IGameState) =>
         new Game(state).initiateMove(payload),
       movePiece: (state, { payload }: IPayload<{ position: string }>) =>
         new Game(state).movePiece(payload),
-      cancelMove: (state) =>
-        new Game(state).cancelMove()
+      cancelMove: state => new Game(state).cancelMove()
     }
   });
 

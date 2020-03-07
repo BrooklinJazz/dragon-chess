@@ -1,4 +1,5 @@
-import { createGame, IGameState } from "./game";
+import { createGame } from "./game";
+import { IGameState } from "./types";
 import { configureStore } from "@reduxjs/toolkit";
 export const configureMockStore = (mockState?: IGameState) => configureStore({
   reducer: {

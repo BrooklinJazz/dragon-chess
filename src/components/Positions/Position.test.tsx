@@ -1,13 +1,11 @@
-import React from "react";
-import { Position } from "./Position";
-import { Provider } from "react-redux";
-import { primary, secondary } from "../../theme/colors";
-import { A1, A2, A7, A3 } from "../../constants/positions";
-import { A7Pawn, A2Pawn } from "../../constants/pieces";
-import { customRender } from "../../test-utils";
-import { configureMockStore } from "../../redux/configureMockStore";
-import { selectValidPositions } from "../../redux/selectors";
-import { render, prettyDOM } from "@testing-library/react";
+import React from 'react';
+import { Provider } from 'react-redux';
+
+import { A7Pawn } from '../../constants/pieces';
+import { A1, A2, A3, A7 } from '../../constants/positions';
+import { customRender } from '../../test-utils';
+import { primary, secondary } from '../../theme/colors';
+import { Position } from './Position';
 
 test("with a1", () => {
   const { getByTestId } = customRender(

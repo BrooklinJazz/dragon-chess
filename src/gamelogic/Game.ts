@@ -1,6 +1,7 @@
 import { IPiece } from "../constants/pieces";
 import { selectValidPositions } from "../redux/selectors";
-import { IGameState, Player } from "../redux/game";
+import { IGameState } from "../redux/types";
+import { Player } from "../redux/types";
 export class Game {
   public state: IGameState;
   constructor(state: IGameState) {
