@@ -5,6 +5,7 @@ import { positionLetters } from "../constants/positions";
 import { Knight } from "./Knight";
 import { Bishop } from "./Bishop";
 import { Rook } from "./Rook";
+import { Queen } from "./Queen";
 
 export const getRightPosition = (position: string) => {
   const letter = letterFromPosition(position);
@@ -32,6 +33,8 @@ export class PieceFactory {
         return new Bishop(piece, whitePositions, blackPositions);
       case Pieces.rook:
         return new Rook(piece, whitePositions, blackPositions);
+      case Pieces.queen:
+        return new Queen(piece, whitePositions, blackPositions);
       default:
         throw new Error();
     }
