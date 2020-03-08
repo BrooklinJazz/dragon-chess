@@ -20,7 +20,7 @@ export class Position {
   }
   value = () => {
     const tempValue = { ...this.instance };
-    if (this.instance.number < 0 || this.instance.number > 8 || !positionLetters.includes(this.instance.letter)) {
+    if (this.instance.number <= 0 || this.instance.number > 8 || !positionLetters.includes(this.instance.letter)) {
       this.revert();
       return undefined
     }

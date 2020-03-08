@@ -65,4 +65,5 @@ test.only("value", () => {
     expect(b2.up().right().value()).toEqual(C3)
     expect(b2.up().left().left().value()).toEqual(undefined)
     expect(b2.down().down().down().value()).toEqual(undefined)
+    expect(b2.down().down().value()).toEqual(undefined)
 })
