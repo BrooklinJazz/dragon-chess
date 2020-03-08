@@ -60,8 +60,9 @@ test("Position .fwd black", () => {
     expect(a8.fwd().save().value()).toEqual(A1)
     expect(a8.fwd().save().value()).toEqual(A1)
 })
-test("value", () => {
+test.only("value", () => {
     const b2 = new Position(B2, Player.black)
     expect(b2.up().right().value()).toEqual(C3)
     expect(b2.up().left().left().value()).toEqual(undefined)
+    expect(b2.down().down().down().value()).toEqual(undefined)
 })

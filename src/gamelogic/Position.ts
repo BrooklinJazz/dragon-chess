@@ -36,8 +36,8 @@ export class Position {
   position = ({ number, letter }: { number?: number; letter?: string } = {}) =>
     (letter || this.letter) + (number || this.number);
 
-  newInstance = ({ number, letter }: { number?: number; letter?: string } = {}) =>
-    ({letter: letter || this.instance.letter, number: number || this.instance.number});
+  newInstance = (number: number, letter: string) =>
+    ({letter: letter, number: number});
 
   letterIndex = () => positionLetters.indexOf(this.instance.letter);
 
@@ -46,28 +46,28 @@ export class Position {
   }
   rightImpl = () => {
     const letter = positionLetters[this.letterIndex() + 1];
-    return this.newInstance({letter: letter || "invalid"})
+    return this.newInstance(this.instance.number, letter || "invalid")
   };
   left = () => {
     return this.exec(this.leftImpl)
   };
   leftImpl = () => {
     const letter = positionLetters[this.letterIndex() - 1];
-    return this.newInstance({letter: letter || "invalid"});
+    return this.newInstance(this.instance.number, letter || "invalid");
   };
   up = () => {
     return this.exec(this.upImpl)
   };
   upImpl = () => {
     const number =  this.instance.number + 1;
-    return this.newInstance({number});
+    return this.newInstance(number, this.instance.letter);
   };
   down = () => {
     return this.exec(this.downImpl)
   };
   downImpl = () => {
     const number = this.instance.number - 1;
-    return this.newInstance({number});
+    return this.newInstance(number, this.instance.letter);
   };
   fwd = () => (this.player === Player.white ? this.up() : this.down());
 
