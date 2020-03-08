@@ -2,6 +2,25 @@ import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
 import { A3, C3 } from "../constants/positions";
 export class Knight extends Piece {
-
-  validMovePositions = (): string[] => [A3, C3]
+  movePositions = (): (string | undefined)[] => {
+    const upLeft = this.up().up().left().value()
+    const upRight = this.up().up().right().value()
+    const rightUp = this.right().right().up().value()
+    const rightDown = this.right().right().down().value()
+    const downRight = this.down().down().right().value()
+    const downLeft = this.down().down().left().value()
+    const leftDown = this.left().left().down().value()
+    const leftUp = this.left().left().up().value()
+    return [
+      upLeft,
+      upRight,
+      rightUp,
+      rightDown,
+      downRight,
+      downLeft,
+      leftDown,
+      leftUp
+    ];
+  };
+  validMovePositions = (): string[] => this.movePositions().filter(each => each) as string[];
 }

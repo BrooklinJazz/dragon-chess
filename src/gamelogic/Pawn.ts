@@ -21,7 +21,7 @@ export class Pawn extends Piece {
   addTakeablePositions = (positions: string[]) => {
     return this.takeablePositions().concat(positions)}
   movePositions = () => {
-    return this.isFirstMove() ? [this.fwd().value(), this.fwd().fwd().value()] : [this.fwd().value()];
+    return this.isFirstMove() ? [this.up().value(), this.up().up().value()] : [this.up().value()];
   };
   filterOutUndefined = (positions: (string | undefined)[]) => positions.filter(each => each)
   validMovePositions = (): string[] => {

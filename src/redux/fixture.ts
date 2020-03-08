@@ -2,7 +2,11 @@ import { configureMockStore } from "./configureMockStore";
 import { Player } from "./types";
 import { IPiece } from "../constants/pieces";
 import { initiateMove, movePiece } from "./game";
-import { selectMovingPiece, selectValidPositions, selectAllBlackPositions } from "./selectors";
+import {
+  selectMovingPiece,
+  selectValidPositions,
+  selectAllBlackPositions
+} from "./selectors";
 import { AnyAction } from "redux";
 
 export class Fixture {
@@ -63,7 +67,7 @@ export class Fixture {
   assertValidPositionsMatch = (...positions: string[]) =>
     this.exec(() => this.assertValidPositionsMatchImpl(positions));
   private assertValidPositionsMatchImpl = (positions: string[]) => {
-    expect(this.validPositions()).toEqual(positions);
+    expect(this.validPositions().sort()).toEqual(positions.sort());
   };
 
   assertBlackPositionsMatch = (...positions: string[]) =>
@@ -72,7 +76,15 @@ export class Fixture {
     expect(this.blackPositions()).toEqual(positions);
   };
 
-  assertPiecesContains = (piece: IPiece) => this.exec(() => this.assertPiecesContainsImpl(piece))
-  private assertPiecesContainsImpl = (piece: IPiece) => {
-    expect(this.pieces()).toContainEqual(piece)}
+  assertPiecesContain = (piece: IPiece) =>
+    this.exec(() => this.assertPiecesContainImpl(piece));
+  private assertPiecesContainImpl = (piece: IPiece) => {
+    expect(this.pieces()).toContainEqual(piece);
+  };
+
+  assertPiecesDoesNotContain = (piece: IPiece) =>
+    this.exec(() => this.assertPiecesDoesNotContainImpl(piece));
+  private assertPiecesDoesNotContainImpl = (piece: IPiece) => {
+    expect(this.pieces().some(each => piece.id === each.id)).toBeFalsy()
+  };
 }

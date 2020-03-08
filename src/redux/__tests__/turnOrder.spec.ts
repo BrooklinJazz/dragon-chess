@@ -20,7 +20,9 @@ describe("turn order", () => {
     store.dispatch(movePiece({ position: A3 }));
     expect(selectTurn(store.getState())).toEqual(Player.black);
   });
-  it("initiateMove _ movePiece _ black turn _ black player", () => {
+
+  // Implementing moving as the black player later on.
+  xit("initiateMove _ movePiece _ black turn _ black player", () => {
     store = configureMockStore({ ...initialGameState, player: Player.black, turn: Player.black });
     store.dispatch(initiateMove({ piece: A7Pawn }));
     store.dispatch(movePiece({ position: A6 }));
