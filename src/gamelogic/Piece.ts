@@ -24,4 +24,8 @@ export class Piece {
   }
   filterInsideBoard = (positions: string[]) =>
     positions.filter(position => allPositions.some(each => each === position));
+    player = () => this.piece.player
+    up = () => this.position.up()
+    down = () => this.position.down()
+    fwd = () => this.position.fwd()
 }

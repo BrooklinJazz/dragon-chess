@@ -18,10 +18,6 @@ export class Pawn extends Piece {
     }
     return positions;
   };
-  player = () => this.piece.player
-  up = () => this.position.up()
-  down = () => this.position.down()
-  fwd = () => this.position.fwd()
   addTakeablePositions = (positions: string[]) => {
     return this.takeablePositions().concat(positions)}
   movePositions = () => {

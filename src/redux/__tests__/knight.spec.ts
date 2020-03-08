@@ -1,23 +1,19 @@
-import { initialGameState, initiateMove } from "../game";
-import { IGameState, Player } from "../types";
-import { B1Knight } from "../../constants/pieces";
-import { configureMockStore } from "../configureMockStore";
-import { selectMovingPiece } from "../selectors";
+import { A7Pawn, B2Pawn, C7Pawn, mockMove, B1Knight } from '../../constants/pieces';
+import { A3, B3, B4, C3 } from '../../constants/positions';
+import { Fixture } from '../fixture';
 
-describe("taking a piece", () => {
-  let store: any;
+describe("knight", () => {
+  let fixture: Fixture;
   beforeEach(() => {
-    store = configureMockStore({ ...initialGameState, pieces: [] });
+    fixture = new Fixture()
   });
-  it("white player _ white turn _ B2Pawn _ A7Pawn on A3 _ C7Pawn on C3", () => {
-    const mockState: IGameState = {
-      ...initialGameState,
-      pieces: [B1Knight],
-      player: Player.white,
-      turn: Player.white
-    };
-    store = configureMockStore(mockState);
-    store.dispatch(initiateMove({ piece: B1Knight }));
-    expect(selectMovingPiece(store.getState())).toEqual(B1Knight)
+  it("white player _ white turn _ B1Knight", () => {
+    fixture
+      .addPieces(B1Knight)
+      .initiateMove(B1Knight)
+      .assertMovingPieceMatch(B1Knight)
+      .assertValidPositionsMatch(A3, C3)
+    //   .movePiece(A3)
+    //   .assertBlackPositionsMatch(C3)
   });
 });

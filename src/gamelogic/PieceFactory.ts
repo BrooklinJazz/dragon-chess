@@ -2,6 +2,7 @@ import { IPiece, Pieces } from "../constants/pieces";
 import { Pawn } from "./Pawn";
 import { letterFromPosition, numberFromPosition } from "../helpers.ts";
 import { positionLetters } from "../constants/positions";
+import { Knight } from "./Knight";
 
 export const getRightPosition = (position: string) => {
   const letter = letterFromPosition(position);
@@ -23,6 +24,8 @@ export class PieceFactory {
     switch (piece.type) {
       case Pieces.pawn:
         return new Pawn(piece, whitePositions, blackPositions);
+      case Pieces.knight:
+        return new Knight(piece, whitePositions, blackPositions);
       default:
         throw new Error();
     }
