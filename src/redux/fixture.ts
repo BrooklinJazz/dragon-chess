@@ -54,9 +54,9 @@ export class Fixture {
     this.exec(() => this.movePieceImpl(position));
   movePieceImpl = (position: string) => this.dispatch(movePiece({ position }));
 
-  assertMovingPieceMatch = (piece: IPiece) =>
+  assertMovingPieceMatch = (piece?: IPiece) =>
     this.exec(() => this.assertMovingPieceMatchImpl(piece));
-  private assertMovingPieceMatchImpl = (piece: IPiece) => {
+  private assertMovingPieceMatchImpl = (piece?: IPiece) => {
     expect(this.movingPiece()).toEqual(piece);
   };
 
@@ -71,4 +71,8 @@ export class Fixture {
   private assertBlackPositionsMatchImpl = (positions: string[]) => {
     expect(this.blackPositions()).toEqual(positions);
   };
+
+  assertPiecesContains = (piece: IPiece) => this.exec(() => this.assertPiecesContainsImpl(piece))
+  private assertPiecesContainsImpl = (piece: IPiece) => {
+    expect(this.pieces()).toContainEqual(piece)}
 }

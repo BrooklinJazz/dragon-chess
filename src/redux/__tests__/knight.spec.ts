@@ -13,7 +13,8 @@ describe("knight", () => {
       .initiateMove(B1Knight)
       .assertMovingPieceMatch(B1Knight)
       .assertValidPositionsMatch(A3, C3)
-    //   .movePiece(A3)
-    //   .assertBlackPositionsMatch(C3)
+      .movePiece(A3)
+      .assertMovingPieceMatch(undefined)
+      .assertPiecesContains(mockMove(B1Knight, A3))
   });
 });
