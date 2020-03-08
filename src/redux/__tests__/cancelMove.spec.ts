@@ -1,5 +1,5 @@
 import { cancelMove, initialGameState } from "../game";
-import { IGameState } from "../types";
+import { IGameState, Player } from "../types";
 import { A2Pawn, A7Pawn } from "../../constants/pieces";
 import { selectMovingPiece } from "../selectors";
 import { configureMockStore } from "../configureMockStore";
@@ -13,8 +13,8 @@ describe("cancelMove", () => {
       ...initialGameState,
       pieces: [A2Pawn],
       movingPiece: A2Pawn,
-      player: "white",
-      turn: "white"
+      player: Player.white,
+      turn: Player.white
     };
     store = configureMockStore(mockState);
     store.dispatch(cancelMove());
@@ -25,8 +25,8 @@ describe("cancelMove", () => {
       ...initialGameState,
       pieces: [A7Pawn],
       movingPiece: A7Pawn,
-      player: "white",
-      turn: "black"
+      player: Player.white,
+      turn: Player.black
     };
     store = configureMockStore(mockState);
     store.dispatch(cancelMove());

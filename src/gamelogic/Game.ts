@@ -15,8 +15,9 @@ export class Game {
     return this.state;
   };
 
-  initiateMove = ({ piece }: { piece: IPiece }) =>
-    this.exec(() => this.initiateMoveImpl(piece), this.state.player === piece.player);
+  initiateMove = ({ piece }: { piece: IPiece }) => {
+    return this.exec(() => this.initiateMoveImpl(piece), this.state.player === piece.player);
+  }
 
   initiateMoveImpl = (piece: IPiece) => ({
     ...this.state,
@@ -32,14 +33,16 @@ export class Game {
     return this.exec(() => this.movePieceImpl(position), isValidPosition);
   };
 
-  movePieceImpl = (position: string) => ({
-    ...this.state,
-    pieces: this.state.pieces.map(each =>
-      each.id === this.state.movingPiece!.id ? { ...each, position } : each
-    ),
-    movingPiece: undefined,
-    turn: this.state.turn === Player.white ? Player.black : Player.white
-  });
+  movePieceImpl = (position: string) => {
+    const removePiece = (piece: IPiece) => piece.position !== position
+    const insertPiece = (piece: IPiece) => piece.id === this.state.movingPiece!.id ? { ...piece, position } : piece
+    return {
+      ...this.state,
+      pieces: this.state.pieces.filter(removePiece).map(insertPiece),
+      movingPiece: undefined,
+      turn: this.state.turn === Player.white ? Player.black : Player.white
+    }
+  };
 
   cancelMove = () => this.exec(() => this.cancelMoveImpl());
 

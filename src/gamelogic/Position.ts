@@ -1,5 +1,6 @@
 import { letterFromPosition, numberFromPosition } from "../helpers.ts";
 import { positionLetters, positionNumbers } from "../constants/positions";
+import { Player } from "../redux/types";
 
 export class Position {
   public letter: string;
@@ -8,7 +9,7 @@ export class Position {
     letter: string;
     number: number;
   };
-  constructor(position: string, public player: "white" | "black" = "white") {
+  constructor(position: string, public player: Player = Player.white) {
     this.letter = letterFromPosition(position);
     this.number = numberFromPosition(position);
     this.player = player;
@@ -19,34 +20,61 @@ export class Position {
   }
   value = () => {
     const tempValue = { ...this.instance };
+    if (this.instance.number < 0 || this.instance.number > 8 || !positionLetters.includes(this.instance.letter)) {
+      this.revert();
+      return undefined
+    }
     this.revert();
     return tempValue.letter + tempValue.number;
   };
+
+  exec = (fn: any) => {
+    this.instance = fn()
+    return this
+  }
+
   position = ({ number, letter }: { number?: number; letter?: string } = {}) =>
     (letter || this.letter) + (number || this.number);
+
+  newInstance = ({ number, letter }: { number?: number; letter?: string } = {}) =>
+    ({letter: letter || this.instance.letter, number: number || this.instance.number});
+
   letterIndex = () => positionLetters.indexOf(this.instance.letter);
+
   right = () => {
-    this.instance.letter = positionLetters[Math.min(this.letterIndex() + 1, 7)];
-    return this;
+    return this.exec(this.rightImpl)
+  }
+  rightImpl = () => {
+    const letter = positionLetters[this.letterIndex() + 1];
+    return this.newInstance({letter: letter || "invalid"})
   };
   left = () => {
-    this.instance.letter = positionLetters[Math.max(this.letterIndex() - 1, 0)];
-    return this;
+    return this.exec(this.leftImpl)
+  };
+  leftImpl = () => {
+    const letter = positionLetters[this.letterIndex() - 1];
+    return this.newInstance({letter: letter || "invalid"});
   };
   up = () => {
-    this.instance.number = Math.min(this.instance.number + 1, 8);
-    return this;
+    return this.exec(this.upImpl)
+  };
+  upImpl = () => {
+    const number =  this.instance.number + 1;
+    return this.newInstance({number});
   };
   down = () => {
-    this.instance.number = Math.max(this.instance.number - 1, 1);
-    return this;
+    return this.exec(this.downImpl)
   };
-  fwd = () => (this.player === "white" ? this.up() : this.down());
+  downImpl = () => {
+    const number = this.instance.number - 1;
+    return this.newInstance({number});
+  };
+  fwd = () => (this.player === Player.white ? this.up() : this.down());
 
   save = () => {
     this.letter = this.instance.letter;
     this.number = this.instance.number;
-    return this.position();
+    return this;
   };
   // unused - but I anticipate the need for this.
   revert = () => {

@@ -22,13 +22,27 @@ export class Pawn extends Piece {
   up = () => this.position.up()
   down = () => this.position.down()
   fwd = () => this.position.fwd()
-  movePositions = (): string[] => {
+  addTakeablePositions = (positions: string[]) => {
+    return this.takeablePositions().concat(positions)}
+  movePositions = () => {
     return this.isFirstMove() ? [this.fwd().value(), this.fwd().fwd().value()] : [this.fwd().value()];
   };
+  filterOutUndefined = (positions: (string | undefined)[]) => positions.filter(each => each)
   validMovePositions = (): string[] => {
     return pipe(
       this.filterInsideBoard,
-      this.filterOutBlocked
+      this.filterOutBlocked,
+    this.filterOutUndefined,
+      this.addTakeablePositions,
     )(this.movePositions());
   };
+
+  takeablePositions() {
+    const leftTake = this.up().left().value()
+    const rightTake = this.up().right().value()
+    return this.opponentPositions.reduce((total: string[], each) => {
+      const takeablePositionIsOccupied = each === leftTake || each === rightTake;
+      return takeablePositionIsOccupied ? total.concat(each) : total;
+    }, []);
+  }
 }

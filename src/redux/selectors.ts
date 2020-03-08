@@ -3,6 +3,7 @@ import { createSelector } from "reselect";
 import { A1, A2, A3, A4, positionLetters } from "../constants/positions";
 import { letterFromPosition, numberFromPosition } from "../helpers.ts";
 import { PieceFactory } from "../gamelogic/PieceFactory";
+import { Player } from "./types";
 
 export const selectPieces = (state: AppState) => state.game.pieces;
 export const selectPiece = (state: AppState, position: string) =>
@@ -15,12 +16,21 @@ export const selectAllTakenPositions = createSelector(
   selectPieces,
   pieces => pieces.map(each => each.position)
 );
+export const selectAllBlackPositions = createSelector(
+  selectPieces,
+  pieces => pieces.reduce((total: string[], each) => each.player === Player.black ? total.concat(each.position) : total, [])
+);
+export const selectAllWhitePositions = createSelector(
+  selectPieces,
+  pieces => pieces.reduce((total: string[], each) => each.player === Player.white ? total.concat(each.position) : total, [])
+);
 
 export const selectValidPositions = createSelector(
   selectMovingPiece,
-  selectAllTakenPositions,
-  (movingPiece, takenPositions) => {
-    return movingPiece ? PieceFactory.fromPiece(movingPiece, takenPositions).validMovePositions() : []
+  selectAllWhitePositions,
+  selectAllBlackPositions,
+  (movingPiece, whitePositions, blackPositions) => {
+    return movingPiece ? PieceFactory.fromPiece(movingPiece, whitePositions, blackPositions).validMovePositions() : []
   }
 );
 

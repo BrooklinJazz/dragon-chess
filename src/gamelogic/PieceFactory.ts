@@ -19,10 +19,10 @@ export const incForwardPosition = (position: string) => {
 }
 
 export class PieceFactory {
-  static fromPiece(piece: IPiece, blockedPositions: string[]) {
+  static fromPiece(piece: IPiece, whitePositions: string[], blackPositions: string[]) {
     switch (piece.type) {
       case Pieces.pawn:
-        return new Pawn(piece, blockedPositions);
+        return new Pawn(piece, whitePositions, blackPositions);
       default:
         throw new Error();
     }

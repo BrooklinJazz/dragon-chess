@@ -11,6 +11,7 @@ describe("initiateMove", () => {
     store = configureMockStore();
   });
   it("initiateMove _ A2 Pawn", () => {
+    store = configureMockStore({...initialGameState, pieces: [A2Pawn]})
     store.dispatch(initiateMove({ piece: A2Pawn }));
     expect(selectMovingPiece(store.getState())).toEqual(A2Pawn);
     expect(selectValidPositions(store.getState())).toEqual([A3, A4]);
@@ -24,6 +25,7 @@ describe("initiateMove", () => {
   // this would never happen, but it tests trying to move outside board.
   it("initiateMove _ A2 Pawn in A8 position", () => {
     const A8Pawn = mockMove(A2Pawn, A8);
+    store = configureMockStore({...initialGameState, pieces: [A8Pawn]})
     store.dispatch(initiateMove({ piece: A8Pawn }));
     expect(selectMovingPiece(store.getState())).toEqual(A8Pawn);
     expect(selectValidPositions(store.getState())).toEqual([]);

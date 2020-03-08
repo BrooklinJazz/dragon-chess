@@ -7,15 +7,19 @@ import { letterFromPosition, numberFromPosition } from "../helpers.ts";
 import { pipe } from "../helpers.ts/pipe";
 import { incForwardPosition, getRightPosition } from "./PieceFactory";
 import { Position } from "./Position";
+import { Player } from "../redux/types";
 
 export class Piece {
   public position: Position
-  constructor(public piece: IPiece, public allTakenPositions: string[]) {
+  public allTakenPositions: string[]
+  public opponentPositions: string[]
+  constructor(public piece: IPiece, public whitePositions: string[], public blackPositions: string[]) {
     // should not include pieces location in taken positions
     // this interferes with logic such as getAllForwardPositions
-    this.allTakenPositions = allTakenPositions.filter(
+    this.allTakenPositions = [...whitePositions, ...blackPositions].filter(
       each => each !== piece.position
     );
+    this.opponentPositions = piece.player === Player.white ? blackPositions : whitePositions
     this.position = new Position(piece.position, piece.player)
   }
   filterInsideBoard = (positions: string[]) =>
