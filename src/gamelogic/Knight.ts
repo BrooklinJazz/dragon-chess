@@ -1,7 +1,10 @@
 import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
-import { A3, C3 } from "../constants/positions";
+
 export class Knight extends Piece {
+  filterOutFriendlyPositions = (positions: string[]) => positions.reduce((total: string[], each) => {
+    return this.friendlyPositions.includes(each) ? total : total.concat(each)
+  }, [])
   movePositions = (): (string | undefined)[] => {
     const upLeft = this.up().up().left().value()
     const upRight = this.up().up().right().value()
@@ -22,5 +25,9 @@ export class Knight extends Piece {
       leftUp
     ];
   };
-  validMovePositions = (): string[] => this.movePositions().filter(each => each) as string[];
+
+  validMovePositions = (): string[] => pipe(
+    this.filterOutUndefined,
+    this.filterOutFriendlyPositions
+  )(this.movePositions());
 }

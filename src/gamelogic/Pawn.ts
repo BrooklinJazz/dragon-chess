@@ -23,7 +23,7 @@ export class Pawn extends Piece {
   movePositions = () => {
     return this.isFirstMove() ? [this.up().value(), this.up().up().value()] : [this.up().value()];
   };
-  filterOutUndefined = (positions: (string | undefined)[]) => positions.filter(each => each)
+
   validMovePositions = (): string[] => {
     return pipe(
       this.filterInsideBoard,

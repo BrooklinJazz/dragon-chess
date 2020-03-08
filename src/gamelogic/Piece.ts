@@ -3,9 +3,6 @@ import {
   positions as allPositions
 } from "../constants/positions";
 import { IPiece } from "../constants/pieces";
-import { letterFromPosition, numberFromPosition } from "../helpers.ts";
-import { pipe } from "../helpers.ts/pipe";
-import { incForwardPosition, getRightPosition } from "./PieceFactory";
 import { Position } from "./Position";
 import { Player } from "../redux/types";
 
@@ -13,6 +10,7 @@ export class Piece {
   public position: Position;
   public allTakenPositions: string[];
   public opponentPositions: string[];
+  public friendlyPositions: string[];
   constructor(
     public piece: IPiece,
     public whitePositions: string[],
@@ -25,8 +23,11 @@ export class Piece {
     );
     this.opponentPositions =
       piece.player === Player.white ? blackPositions : whitePositions;
+    this.friendlyPositions =
+      piece.player === Player.black ? blackPositions : whitePositions;
     this.position = new Position(piece.position, piece.player);
   }
+  filterOutUndefined = (positions: (string | undefined)[]) => positions.filter(each => each)
   filterInsideBoard = (positions: string[]) =>
     positions.filter(position => allPositions.some(each => each === position));
   player = () => this.piece.player;
