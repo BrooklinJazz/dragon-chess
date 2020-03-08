@@ -1,5 +1,6 @@
 import {Position} from "./Position"
 import { A1, A2, A3, A4, A5, A6, A7, A8, B1, C1, D1, E1, F1, G1, H1, B2, C3 } from "../constants/positions"
+import { Player } from "../redux/types"
 
 test("Position .up", () => {
     const a1 = new Position(A1)
@@ -49,7 +50,7 @@ test("Position .left", () => {
 })
 
 test("Position .fwd black", () => {
-    const a8 = new Position(A8, "black")
+    const a8 = new Position(A8, Player.black)
     expect(a8.fwd().save().value()).toEqual(A7)
     expect(a8.fwd().save().value()).toEqual(A6)
     expect(a8.fwd().save().value()).toEqual(A5)
@@ -60,7 +61,7 @@ test("Position .fwd black", () => {
     expect(a8.fwd().save().value()).toEqual(A1)
 })
 test("value", () => {
-    const b2 = new Position(B2, "black")
+    const b2 = new Position(B2, Player.black)
     expect(b2.up().right().value()).toEqual(C3)
     expect(b2.up().left().left().value()).toEqual(undefined)
 })
