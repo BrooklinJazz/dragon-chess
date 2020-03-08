@@ -2,9 +2,6 @@ import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
 
 export class Knight extends Piece {
-  filterOutFriendlyPositions = (positions: string[]) => positions.reduce((total: string[], each) => {
-    return this.friendlyPositions.includes(each) ? total : total.concat(each)
-  }, [])
   movePositions = (): (string | undefined)[] => {
     const upLeft = this.up().up().left().value()
     const upRight = this.up().up().right().value()

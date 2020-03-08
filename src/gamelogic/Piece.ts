@@ -27,10 +27,17 @@ export class Piece {
       piece.player === Player.black ? blackPositions : whitePositions;
     this.position = new Position(piece.position, piece.player);
   }
-  filterOutUndefined = (positions: (string | undefined)[]) => positions.filter(each => each)
+  filterOutUndefined = (positions: (string | undefined)[]) =>
+    positions.filter(each => each);
   filterInsideBoard = (positions: string[]) =>
     positions.filter(position => allPositions.some(each => each === position));
+  filterOutFriendlyPositions = (positions: string[]) =>
+    positions.reduce((total: string[], each) => {
+      return this.friendlyPositions.includes(each) ? total : total.concat(each);
+    }, []);
+
   player = () => this.piece.player;
+
   up = () => this.position.up();
   down = () => this.position.down();
   right = () => this.position.right();
@@ -41,16 +48,16 @@ export class Piece {
   downLeft = () => this.down().left();
 
   all = (fn: () => Position, total: string[] = []): string[] => {
-    const position = fn()
-  const returnVal = position.tempValue();
-  if (!returnVal || this.friendlyPositions.some(each => each === returnVal)) {
-    position.revert();
-    return total;
-  }
-  if (this.opponentPositions.some(each => each === returnVal)) {
-    position.revert();
-    return total.concat(returnVal)
-  }
-  return this.all(fn, total.concat(returnVal));
-};
+    const position = fn();
+    const returnVal = position.tempValue();
+    if (!returnVal || this.friendlyPositions.some(each => each === returnVal)) {
+      position.revert();
+      return total;
+    }
+    if (this.opponentPositions.some(each => each === returnVal)) {
+      position.revert();
+      return total.concat(returnVal);
+    }
+    return this.all(fn, total.concat(returnVal));
+  };
 }
