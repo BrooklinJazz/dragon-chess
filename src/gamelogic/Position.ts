@@ -27,6 +27,12 @@ export class Position {
     this.revert();
     return tempValue.letter + tempValue.number;
   };
+  tempValue = () => {
+    if (this.instance.number <= 0 || this.instance.number > 8 || !positionLetters.includes(this.instance.letter)) {
+      return undefined
+    }
+    return this.position(this.instance)
+  };
 
   exec = (fn: any) => {
     this.instance = fn()

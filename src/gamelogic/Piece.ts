@@ -35,4 +35,8 @@ export class Piece {
   down = () => this.position.down();
   right = () => this.position.right();
   left = () => this.position.left();
+  upLeft = () => this.up().left();
+  upRight = () => this.up().right();
+  downRight = () => this.down().right();
+  downLeft = () => this.down().left();
 }
