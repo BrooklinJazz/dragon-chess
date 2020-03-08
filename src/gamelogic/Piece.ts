@@ -39,4 +39,18 @@ export class Piece {
   upRight = () => this.up().right();
   downRight = () => this.down().right();
   downLeft = () => this.down().left();
+
+  all = (fn: () => Position, total: string[] = []): string[] => {
+    const position = fn()
+  const returnVal = position.tempValue();
+  if (!returnVal || this.friendlyPositions.some(each => each === returnVal)) {
+    position.revert();
+    return total;
+  }
+  if (this.opponentPositions.some(each => each === returnVal)) {
+    position.revert();
+    return total.concat(returnVal)
+  }
+  return this.all(fn, total.concat(returnVal));
+};
 }

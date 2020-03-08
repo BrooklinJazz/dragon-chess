@@ -3,13 +3,13 @@ import { pipe } from "../helpers.ts/pipe";
 import { C2, A3, D2, E3, F4, G5, H6 } from "../constants/positions";
 import { Position } from "./Position";
 
-export class Bishop extends Piece {
+export class Rook extends Piece {
   movePositions = (): (string | undefined)[] => {
-    const upRight = this.all(this.upRight);
-    const upLeft = this.all(this.upLeft);
-    const downRight = this.all(this.downRight);
-    const downLeft = this.all(this.downLeft);
-    return [...upRight, ...upLeft, ...downRight, ...downLeft];
+    const up = this.all(this.up);
+    const left = this.all(this.left);
+    const right = this.all(this.right);
+    const down = this.all(this.down);
+    return [...up, ...left, ...right, ...down];
   };
 
   validMovePositions = (): string[] =>
