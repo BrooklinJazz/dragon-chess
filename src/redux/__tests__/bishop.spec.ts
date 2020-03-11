@@ -1,5 +1,5 @@
-import { mockMove, B1Knight, C1Bishop, A7Pawn, A2Pawn } from '../../constants/pieces';
-import { A3, D2, C2, H6, G5, F4, E3, G6, H5, G1, F2, D4, C5, B6, A7, C1, B2 } from '../../constants/positions';
+import { mockMove, B1Knight, C1Bishop, A7Pawn, A2Pawn, A8Rook, D1King } from '../../constants/pieces';
+import { A3, D2, C2, H6, G5, F4, E3, G6, H5, G1, F2, D4, C5, B6, A7, C1, B2, D3 } from '../../constants/positions';
 import { Fixture } from '../fixture';
 
 describe("knight", () => {
@@ -33,5 +33,14 @@ describe("knight", () => {
       .addPieces(C1Bishop, E3Pawn, A3Pawn)
       .initiateMove(C1Bishop)
       .assertValidPositionsMatch(D2, E3, B2)
+  });
+  it("white player _ white turn _ D1King _ C1Bishop on D2 _ A8Rook on D3", () => {
+    const D1Bishop = mockMove(C1Bishop, D2)
+    const D3Rook = mockMove(A8Rook, D3)
+    fixture
+      .addPieces(D1King, D1Bishop, D3Rook)
+      .initiateMove(D1Bishop)
+      .assertMovingPieceMatch(D1Bishop)
+      .assertNoValidPositions()
   });
 });

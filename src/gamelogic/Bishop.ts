@@ -12,6 +12,6 @@ export class Bishop extends Piece {
     return [...upRight, ...upLeft, ...downRight, ...downLeft];
   };
 
-  validMovePositions = (): string[] =>
+  baseMovePositions = (): string[] =>
     this.movePositions().filter(each => each) as string[];
 }
