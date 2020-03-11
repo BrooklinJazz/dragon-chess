@@ -12,6 +12,7 @@ export class Rook extends Piece {
     return [...up, ...left, ...right, ...down];
   };
 
-  validMovePositions = (): string[] =>
-    this.movePositions().filter(each => each) as string[];
+  baseMovePositions = (): string[] => pipe(
+    this.filterOutUndefined,
+  )(this.movePositions())
 }

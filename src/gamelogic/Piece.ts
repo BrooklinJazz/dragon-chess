@@ -6,6 +6,7 @@ import { IPiece } from "../constants/pieces";
 import { Position } from "./Position";
 import { Player } from "../redux/types";
 import { PieceFactory } from "./PieceFactory";
+import { pipe } from "../helpers.ts/pipe";
 
 export class Piece {
   public position: Position;
@@ -58,9 +59,15 @@ export class Piece {
   downLeft = () => this.down().left();
 
   takeablePositions(): string[] {
-    return this.validMovePositions();
+    // this avoids max call stack but is likely incorrect for validMovePositions.
+    return this.baseMovePositions();
   }
   validMovePositions(): string[] {
+    return pipe(
+      this.filterOutLosingPositions
+    )(this.baseMovePositions())
+  }
+  baseMovePositions(): string[] {
     throw "NYI validmovepositions";
   }
   movePositions(): (string | undefined)[] {
