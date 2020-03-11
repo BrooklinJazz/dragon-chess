@@ -84,10 +84,18 @@ describe("king", () => {
       .addPieces(D2King, C2Pawn, E2Pawn)
       .initiateMove(D2King)
       .assertMovingPieceMatch(D2King)
-      .assertValidPositionsMatch(C1, E1, E2, C3, E3, D3, D1)
+      .assertValidPositionsMatch(C1, E1, E2, C3, E3, D3)
       .movePiece(E2)
       .assertMovingPieceMatch(undefined)
       .assertPiecesContain(mockMove(D2King, E2))
       .assertPiecesDoesNotContain(E2Pawn)
+  });
+  it("white player _ white turn _ D1King _ A7Pawn on C3 _ D2 is losing move", () => {
+    const C3Pawn = mockMove(A7Pawn, C3);
+    fixture
+      .addPieces(D1King, C3Pawn)
+      .initiateMove(D1King)
+      .assertMovingPieceMatch(D1King)
+      .assertIsNotValidPosition(D2)
   });
 });

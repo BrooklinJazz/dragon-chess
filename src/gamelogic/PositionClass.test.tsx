@@ -95,6 +95,7 @@ test("Position .left _ black player", () => {
     expect(a1.left().save().value()).toEqual(E1)
     expect(a1.left().save().value()).toEqual(F1)
     expect(a1.left().save().value()).toEqual(G1)
+    expect(a1.left().save().value()).toEqual(H1)
     expect(a1.left().save().value()).toEqual(undefined)
 })
 

@@ -56,6 +56,13 @@ export class Piece {
   downRight = () => this.down().right();
   downLeft = () => this.down().left();
 
+  takeablePositions(): string[] {
+    return this.validMovePositions()
+  }
+  validMovePositions(): string[] {
+    throw "NYI validmovepositions"
+  }
+
   all = (fn: () => Position, total: string[] = []): string[] => {
     const position = fn();
     const returnVal = position.tempValue();
