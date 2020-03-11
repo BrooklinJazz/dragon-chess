@@ -16,6 +16,6 @@ export class Queen extends Piece {
     return [...up, ...left, ...right, ...down, ...upRight, ...upLeft, ...downRight, ...downLeft];
   };
 
-  validMovePositions = (): string[] =>
+  baseMovePositions = (): string[] =>
     this.movePositions().filter(each => each) as string[];
 }

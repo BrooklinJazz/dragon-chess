@@ -1,4 +1,4 @@
-import { mockMove, B1Knight, C1Bishop, A7Pawn, A2Pawn, A1Rook, D7Pawn, E1Queen } from '../../constants/pieces';
+import { mockMove, B1Knight, C1Bishop, A7Pawn, A2Pawn, A1Rook, D7Pawn, E1Queen, A8Rook, D1King } from '../../constants/pieces';
 import { A3, D2, C2, H6, G5, F4, E3, G6, H5, G1, F2, D4, C5, B6, A7, C1, B2, A2, A4, A5, A6, B1, D1, E1, F1, H1, A8, E4, H4, G4, D7, D6, D5, D3, D8, B4, C4, H2, G2, E5, E6, E7, E8, F3, B5, E2, C3, G3 } from '../../constants/positions';
 import { Fixture } from '../fixture';
 
@@ -33,5 +33,16 @@ describe("knight", () => {
       .assertMovingPieceMatch(undefined)
       .assertPiecesContain(mockMove(E1Queen, G3))
       .assertPiecesDoesNotContain(G3Pawn)
+  });
+
+  it("white player _ white turn _ D1King _ E1Queen on D2 _ A8Rook on D3 _ A8Rook on F1", () => {
+    const D2Queen = mockMove(E1Queen, D2)
+    const D3Rook = mockMove(A8Rook, D3)
+    const F1Rook = mockMove(A8Rook, F1)
+    fixture
+      .addPieces(D1King, D2Queen, D3Rook, F1Rook)
+      .initiateMove(D2Queen)
+      .assertMovingPieceMatch(D2Queen)
+      .assertNoValidPositions()
   });
 });

@@ -55,9 +55,8 @@ describe("knight", () => {
   xit("white player _ white turn _ D1King _ A1Rook on D2 _ A8Rook on D3", () => {
     const D2Rook = mockMove(A1Rook, D2)
     const D3Rook = mockMove(A8Rook, D3)
-    const F1Rook = mockMove(A8Rook, F1)
     fixture
-      .addPieces(D1King, D2Rook, D3Rook, F1Rook)
+      .addPieces(D1King, D2Rook, D3Rook)
       .initiateMove(D2Rook)
       .assertMovingPieceMatch(D2Rook)
       .assertValidPositionsMatch(D3)

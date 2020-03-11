@@ -93,7 +93,7 @@ export class Piece {
       const king = this.piece.type === "king" ? {
         ...this.piece,
         position: each
-      }  : this.friendlyPieces.find(each => each.type === "king")!
+      }  : this.friendlyPieces.find(each => each.type === "king") || {position: undefined}
       const opponentMoves = this.possibleOpponentMoves(each)
       const moveKillsKing = opponentMoves.some(each => each === king.position)
       return !moveKillsKing
