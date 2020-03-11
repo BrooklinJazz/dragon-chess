@@ -11,10 +11,15 @@ export class Piece {
   public allTakenPositions: string[];
   public opponentPositions: string[];
   public friendlyPositions: string[];
+  public friendlyPieces: IPiece[];
+  public opponentPieces: IPiece[];
+
   constructor(
     public piece: IPiece,
     public whitePositions: string[],
-    public blackPositions: string[]
+    public blackPositions: string[],
+    public whitePieces: IPiece[],
+    public blackPieces: IPiece[]
   ) {
     // should not include pieces location in taken positions
     // this interferes with logic such as getAllForwardPositions
@@ -23,12 +28,16 @@ export class Piece {
     );
     this.opponentPositions =
       piece.player === Player.white ? blackPositions : whitePositions;
+    this.friendlyPieces =
+      piece.player === Player.white ? whitePieces : blackPieces;
+    this.opponentPieces =
+      piece.player === Player.white ? blackPieces : whitePieces;
     this.friendlyPositions =
       piece.player === Player.black ? blackPositions : whitePositions;
     this.position = new Position(piece.position, piece.player);
   }
-  filterOutUndefined = (positions: (string | undefined)[]) =>
-    positions.filter(each => each);
+  filterOutUndefined = (positions: (string | undefined)[]): string[] =>
+    positions.filter(each => each) as string[];
   filterInsideBoard = (positions: string[]) =>
     positions.filter(position => allPositions.some(each => each === position));
   filterOutFriendlyPositions = (positions: string[]) =>

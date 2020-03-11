@@ -14,6 +14,18 @@ test("Position .up", () => {
     expect(a1.up().save().value()).toEqual(undefined)
 })
 
+test("Position .up _ black player", () => {
+    const a7 = new Position(A8, Player.black)
+    expect(a7.up().save().value()).toEqual(A7)
+    expect(a7.up().save().value()).toEqual(A6)
+    expect(a7.up().save().value()).toEqual(A5)
+    expect(a7.up().save().value()).toEqual(A4)
+    expect(a7.up().save().value()).toEqual(A3)
+    expect(a7.up().save().value()).toEqual(A2)
+    expect(a7.up().save().value()).toEqual(A1)
+    expect(a7.up().save().value()).toEqual(undefined)
+})
+
 
 test("Position .down", () => {
     const a8 = new Position(A8)
@@ -26,6 +38,19 @@ test("Position .down", () => {
     expect(a8.down().save().value()).toEqual(A1)
     expect(a8.down().save().value()).toEqual(undefined)
 })
+
+test("Position .down _ black player", () => {
+    const a1 = new Position(A1, Player.black)
+    expect(a1.down().save().value()).toEqual(A2)
+    expect(a1.down().save().value()).toEqual(A3)
+    expect(a1.down().save().value()).toEqual(A4)
+    expect(a1.down().save().value()).toEqual(A5)
+    expect(a1.down().save().value()).toEqual(A6)
+    expect(a1.down().save().value()).toEqual(A7)
+    expect(a1.down().save().value()).toEqual(A8)
+    expect(a1.down().save().value()).toEqual(undefined)
+})
+
 test("Position .right", () => {
     const a1 = new Position(A1)
     expect(a1.right().save().value()).toEqual(B1)
@@ -37,6 +62,19 @@ test("Position .right", () => {
     expect(a1.right().save().value()).toEqual(H1)
     expect(a1.right().save().value()).toEqual(undefined)
 })
+
+test("Position .right _ black", () => {
+    const h1 = new Position(H1, Player.black)
+    expect(h1.right().save().value()).toEqual(G1)
+    expect(h1.right().save().value()).toEqual(F1)
+    expect(h1.right().save().value()).toEqual(E1)
+    expect(h1.right().save().value()).toEqual(D1)
+    expect(h1.right().save().value()).toEqual(C1)
+    expect(h1.right().save().value()).toEqual(B1)
+    expect(h1.right().save().value()).toEqual(A1)
+    expect(h1.right().save().value()).toEqual(undefined)
+})
+
 test("Position .left", () => {
     const h1 = new Position(H1)
     expect(h1.left().save().value()).toEqual(G1)
@@ -47,6 +85,17 @@ test("Position .left", () => {
     expect(h1.left().save().value()).toEqual(B1)
     expect(h1.left().save().value()).toEqual(A1)
     expect(h1.left().save().value()).toEqual(undefined)
+})
+
+test("Position .left _ black player", () => {
+    const a1 = new Position(A1, Player.black)
+    expect(a1.left().save().value()).toEqual(B1)
+    expect(a1.left().save().value()).toEqual(C1)
+    expect(a1.left().save().value()).toEqual(D1)
+    expect(a1.left().save().value()).toEqual(E1)
+    expect(a1.left().save().value()).toEqual(F1)
+    expect(a1.left().save().value()).toEqual(G1)
+    expect(a1.left().save().value()).toEqual(undefined)
 })
 
 test("value", () => {

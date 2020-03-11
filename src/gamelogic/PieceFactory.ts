@@ -23,21 +23,22 @@ export const incForwardPosition = (position: string) => {
   return `${letter}${numberFromPosition(position) + 1}`
 }
 
+// Todo refactor this to pass in state directly
 export class PieceFactory {
-  static fromPiece(piece: IPiece, whitePositions: string[], blackPositions: string[]) {
+  static fromPiece(piece: IPiece, whitePositions: string[], blackPositions: string[], whitePieces: IPiece[], blackPieces: IPiece[]) {
     switch (piece.type) {
       case Pieces.pawn:
-        return new Pawn(piece, whitePositions, blackPositions);
+        return new Pawn(piece, whitePositions, blackPositions, whitePieces, blackPieces);
       case Pieces.knight:
-        return new Knight(piece, whitePositions, blackPositions);
+        return new Knight(piece, whitePositions, blackPositions, whitePieces, blackPieces);
       case Pieces.bishop:
-        return new Bishop(piece, whitePositions, blackPositions);
+        return new Bishop(piece, whitePositions, blackPositions, whitePieces, blackPieces);
       case Pieces.rook:
-        return new Rook(piece, whitePositions, blackPositions);
+        return new Rook(piece, whitePositions, blackPositions, whitePieces, blackPieces);
       case Pieces.queen:
-        return new Queen(piece, whitePositions, blackPositions);
+        return new Queen(piece, whitePositions, blackPositions, whitePieces, blackPieces);
       case Pieces.king:
-        return new King(piece, whitePositions, blackPositions);
+        return new King(piece, whitePositions, blackPositions, whitePieces, blackPieces);
       default:
         throw new Error();
     }

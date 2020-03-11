@@ -87,4 +87,10 @@ export class Fixture {
   private assertPiecesDoesNotContainImpl = (piece: IPiece) => {
     expect(this.pieces().some(each => piece.id === each.id)).toBeFalsy()
   };
+
+  assertIsNotValidPosition = (position: string) =>
+    this.exec(() => this.assertIsNotValidPositionImpl(position));
+  private assertIsNotValidPositionImpl = (position: string) => {
+    expect(this.validPositions().some(each => each === position)).toBeFalsy()
+  };
 }
