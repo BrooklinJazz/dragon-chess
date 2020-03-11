@@ -5,6 +5,7 @@ import {
 import { IPiece } from "../constants/pieces";
 import { Position } from "./Position";
 import { Player } from "../redux/types";
+import { PieceFactory } from "./PieceFactory";
 
 export class Piece {
   public position: Position;
@@ -57,10 +58,13 @@ export class Piece {
   downLeft = () => this.down().left();
 
   takeablePositions(): string[] {
-    return this.validMovePositions()
+    return this.validMovePositions();
   }
   validMovePositions(): string[] {
-    throw "NYI validmovepositions"
+    throw "NYI validmovepositions";
+  }
+  movePositions(): (string | undefined)[] {
+    throw "NYI movePositions";
   }
 
   all = (fn: () => Position, total: string[] = []): string[] => {
@@ -76,4 +80,50 @@ export class Piece {
     }
     return this.all(fn, total.concat(returnVal));
   };
+
+  filterOutLosingPositions = (positions: string[]) => {
+    return positions.filter(each => {
+      const king = this.piece.type === "king" ? {
+        ...this.piece,
+        position: each
+      }  : this.friendlyPieces.find(each => each.type === "king")!
+      const opponentMoves = this.possibleOpponentMoves(each)
+      const moveKillsKing = opponentMoves.some(each => each === king.position)
+      return !moveKillsKing
+    });
+  };
+
+  possibleOpponentMoves = (move: string): string[] => {
+    if (!move) {
+      return [];
+    }
+    const newPiece = {
+      ...this.piece,
+      position: move
+    };
+    const friendlyPieces = this.friendlyPieces.map(each =>
+      each.id === newPiece.id ? newPiece : each
+    );
+    const whitePieces =
+      this.player() === Player.white ? friendlyPieces : this.opponentPieces;
+    const blackPieces =
+      this.player() === Player.black ? friendlyPieces : this.opponentPieces;
+    const whitePositions = whitePieces.map(each => each.position);
+    const blackPositions = blackPieces.map(each => each.position);
+    return this.opponentPieces.reduce(
+      (total: string[], opponentPiece) => {
+        return [
+          ...total,
+          ...PieceFactory.fromPiece(
+            opponentPiece,
+            whitePositions,
+            blackPositions,
+            whitePieces,
+            blackPieces
+          ).takeablePositions()
+        ];
+      },
+      []
+    );
+  }
 }

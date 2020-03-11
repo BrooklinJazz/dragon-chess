@@ -17,50 +17,6 @@ export class King extends Piece {
     ];
   };
 
-  // TODO REFACTOR this garbo
-  possibleOpponentMoves = () =>
-    this.movePositions().reduce((moves: string[], move) => {
-      if (!move) {
-        return moves
-      }
-      const newPiece = {
-        ...this.piece,
-        position: move
-      };
-      const friendlyPieces = this.friendlyPieces.map(each =>
-        each.id === newPiece.id ? newPiece : each
-      );
-      const whitePieces =
-        this.player() === Player.white ? friendlyPieces : this.opponentPieces;
-      const blackPieces =
-        this.player() === Player.black ? friendlyPieces : this.opponentPieces;
-      const whitePositions = whitePieces.map(each => each.position);
-      const blackPositions = blackPieces.map(each => each.position);
-      const opponentMovesAfterKingMove = this.opponentPieces.reduce(
-        (total: string[], opponentPiece) => {
-          return [
-            ...total,
-            ...PieceFactory.fromPiece(
-              opponentPiece,
-              whitePositions,
-              blackPositions,
-              whitePieces,
-              blackPieces
-            ).takeablePositions()
-          ];
-        },
-        []
-      );
-      return [...moves, ...opponentMovesAfterKingMove]
-    }, []);
-
-  filterOutLosingPositions = (positions: string[]) => {
-    const opponentMoves = this.possibleOpponentMoves();
-    return positions.filter(
-      position => !opponentMoves.some(each => position === each)
-    );
-  };
-
   validMovePositions = (): string[] =>
     pipe(
       this.filterOutUndefined,

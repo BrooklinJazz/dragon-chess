@@ -93,4 +93,10 @@ export class Fixture {
   private assertIsNotValidPositionImpl = (position: string) => {
     expect(this.validPositions().some(each => each === position)).toBeFalsy()
   };
+
+  assertNoValidPositions = () =>
+    this.exec(() => this.assertNoValidPositionsImpl());
+  private assertNoValidPositionsImpl = () => {
+    expect(this.validPositions()).toEqual([])
+  };
 }

@@ -62,8 +62,7 @@ describe("initiateMove", () => {
     store.dispatch(initiateMove({ piece: A2Pawn }));
     expect(selectMovingPiece(store.getState())).toBeUndefined();
   });
-  // TODO implement black player
-  xit("initiateMove _ A7 Pawn _ black player _ black turn", () => {
+  it("initiateMove _ A7 Pawn _ black player _ black turn", () => {
     const mockState: IGameState = {
       ...initialGameState,
       pieces: [A2Pawn, A7Pawn],
