@@ -33,15 +33,6 @@ export class Pawn extends Piece {
     )([...this.baseMovePositions(), ...this.takeablePositions()])
   }
 
-  // validbaseMovePositions() {
-  //   return pipe(
-  //     this.filterInsideBoard,
-  //     this.filterOutBlocked,
-  //   this.filterOutUndefined,
-  //     this.addTakeablePositions,
-  //   )(this.baseMovePositions());
-  // };
-
   takeablePositions() {
     const leftTake = this.up().left().value()
     const rightTake = this.up().right().value()
