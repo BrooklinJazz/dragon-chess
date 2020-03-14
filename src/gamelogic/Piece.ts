@@ -57,7 +57,7 @@ export class Piece {
     // this avoids max call stack but is likely incorrect for validMovePositions.
     return this.movePositionsAfterUniqueFilters();
   }
-  validbaseMovePositions(): string[] {
+  validMovePositions(): string[] {
     return pipe(
       this.filterOutLosingPositions
     )(this.movePositionsAfterUniqueFilters())
