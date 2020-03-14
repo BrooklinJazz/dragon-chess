@@ -10,34 +10,30 @@ import { pipe } from "../helpers.ts/pipe";
 
 export class Piece {
   public position: Position;
-  public allTakenPositions: string[];
-  public opponentPositions: string[];
-  public friendlyPositions: string[];
-  public friendlyPieces: IPiece[];
-  public opponentPieces: IPiece[];
 
   constructor(
     public piece: IPiece,
-    public whitePositions: string[],
-    public blackPositions: string[],
-    public whitePieces: IPiece[],
-    public blackPieces: IPiece[]
+    public pieces: IPiece[]
   ) {
-    // should not include pieces location in taken positions
-    // this interferes with logic such as getAllForwardPositions
-    this.allTakenPositions = [...whitePositions, ...blackPositions].filter(
-      each => each !== piece.position
-    );
-    this.opponentPositions =
-      piece.player === Player.white ? blackPositions : whitePositions;
-    this.friendlyPieces =
-      piece.player === Player.white ? whitePieces : blackPieces;
-    this.opponentPieces =
-      piece.player === Player.white ? blackPieces : whitePieces;
-    this.friendlyPositions =
-      piece.player === Player.black ? blackPositions : whitePositions;
     this.position = new Position(piece.position, piece.player);
   }
+  player = () => this.piece.player;
+  isBlack = () =>  this.player() === Player.white
+  isWhite = () =>  this.player() === Player.white
+
+  public allTakenPositions = this.pieces.map(each => each.position)
+
+  public whitePieces = this.pieces.filter(each => each.player === Player.white)
+  public blackPieces = this.pieces.filter(each => each.player === Player.black)
+  public blackPositions = this.blackPieces.map(each => each.position)
+  public whitePositions = this.whitePieces.map(each => each.position)
+
+  public friendlyPieces = this.isWhite() ? this.whitePieces : this.blackPieces
+  public opponentPieces = this.isWhite() ? this.blackPieces : this.whitePieces
+
+  public friendlyPositions = this.friendlyPieces.map(each => each.position)
+  public opponentPositions = this.opponentPieces.map(each => each.position)
+
   filterOutUndefined = (positions: (string | undefined)[]): string[] =>
     positions.filter(each => each) as string[];
   filterInsideBoard = (positions: string[]) =>
@@ -47,7 +43,6 @@ export class Piece {
       return this.friendlyPositions.includes(each) ? total : total.concat(each);
     }, []);
 
-  player = () => this.piece.player;
 
   up = () => this.position.up();
   down = () => this.position.down();
@@ -108,25 +103,14 @@ export class Piece {
       ...this.piece,
       position: move
     };
-    const friendlyPieces = this.friendlyPieces.map(each =>
-      each.id === newPiece.id ? newPiece : each
-    );
-    const whitePieces =
-      this.player() === Player.white ? friendlyPieces : this.opponentPieces;
-    const blackPieces =
-      this.player() === Player.black ? friendlyPieces : this.opponentPieces;
-    const whitePositions = whitePieces.map(each => each.position);
-    const blackPositions = blackPieces.map(each => each.position);
+    const newPieces = this.pieces.map(each => each.id === newPiece.id ? newPiece : each)
     return this.opponentPieces.filter(each => each.position !== move).reduce(
       (total: string[], opponentPiece) => {
         return [
           ...total,
           ...PieceFactory.fromPiece(
             opponentPiece,
-            whitePositions,
-            blackPositions,
-            whitePieces,
-            blackPieces
+            newPieces
           ).takeablePositions()
         ];
       },

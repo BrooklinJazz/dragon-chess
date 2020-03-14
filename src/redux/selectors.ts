@@ -32,16 +32,13 @@ export const selectAllWhitePieces = createSelector(
 export const selectAllWhitePositions = createSelector(
   selectPieces,
   pieces => pieces.reduce((total: string[], each) => each.player === Player.white ? total.concat(each.position) : total, [])
-);
+  );
 
 export const selectValidPositions = createSelector(
   selectMovingPiece,
-  selectAllWhitePositions,
-  selectAllBlackPositions,
-  selectAllWhitePieces,
-  selectAllBlackPieces,
-  (movingPiece, whitePositions, blackPositions, whitePieces, blackPieces) => {
-    return movingPiece ? PieceFactory.fromPiece(movingPiece, whitePositions, blackPositions, whitePieces, blackPieces).validMovePositions() : []
+  selectPieces,
+  (movingPiece, pieces) => {
+    return movingPiece ? PieceFactory.fromPiece(movingPiece, pieces).validMovePositions() : []
   }
 );
 
