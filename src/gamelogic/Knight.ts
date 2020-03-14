@@ -2,7 +2,7 @@ import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
 
 export class Knight extends Piece {
-  movePositions = (): (string | undefined)[] => {
+  baseMovePositions= (): (string | undefined)[] => {
     const upLeft = this.up().up().left().value()
     const upRight = this.up().up().right().value()
     const rightUp = this.right().right().up().value()
@@ -23,8 +23,8 @@ export class Knight extends Piece {
     ];
   };
 
-  baseMovePositions = (): string[] => pipe(
+  movePositionsAfterUniqueFilters = (): string[] => pipe(
     this.filterOutUndefined,
     this.filterOutFriendlyPositions,
-  )(this.movePositions());
+  )(this.baseMovePositions());
 }

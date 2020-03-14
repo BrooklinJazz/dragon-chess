@@ -55,17 +55,17 @@ export class Piece {
 
   takeablePositions(): string[] {
     // this avoids max call stack but is likely incorrect for validMovePositions.
-    return this.baseMovePositions();
+    return this.movePositionsAfterUniqueFilters();
   }
-  validMovePositions(): string[] {
+  validbaseMovePositions(): string[] {
     return pipe(
       this.filterOutLosingPositions
-    )(this.baseMovePositions())
+    )(this.movePositionsAfterUniqueFilters())
   }
-  baseMovePositions(): string[] {
-    throw new Error("NYI baseMovePositions");
+  movePositionsAfterUniqueFilters(): string[] {
+    throw new Error("NYI movePositionsAfterUniqueFilters");
   }
-  movePositions(): (string | undefined)[] {
+  baseMovePositions(): (string | undefined)[] {
     throw new Error("NYI movePositions");
   }
 

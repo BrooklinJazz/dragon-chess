@@ -4,7 +4,7 @@ import { C2, A3, D2, E3, F4, G5, H6 } from "../constants/positions";
 import { Position } from "./Position";
 
 export class Queen extends Piece {
-  movePositions = (): (string | undefined)[] => {
+  baseMovePositions= (): (string | undefined)[] => {
     const up = this.all(this.up);
     const left = this.all(this.left);
     const right = this.all(this.right);
@@ -16,6 +16,6 @@ export class Queen extends Piece {
     return [...up, ...left, ...right, ...down, ...upRight, ...upLeft, ...downRight, ...downLeft];
   };
 
-  baseMovePositions = (): string[] =>
-    this.movePositions().filter(each => each) as string[];
+  movePositionsAfterUniqueFilters = (): string[] =>
+    this.baseMovePositions().filter(each => each) as string[];
 }

@@ -21,25 +21,25 @@ export class Pawn extends Piece {
   };
   addTakeablePositions = (positions: string[]) => {
     return this.takeablePositions().concat(positions)}
-  movePositions = () => {
+  baseMovePositions= () => {
     return this.isFirstMove() ? [this.up().value(), this.up().up().value()] : [this.up().value()];
   };
 
-  baseMovePositions(): string[] {
+  movePositionsAfterUniqueFilters(): string[] {
     return pipe(
       this.filterOutUndefined,
       this.filterOutBlocked,
       this.filterInsideBoard,
-    )([...this.movePositions(), ...this.takeablePositions()])
+    )([...this.baseMovePositions(), ...this.takeablePositions()])
   }
 
-  // validMovePositions() {
+  // validbaseMovePositions() {
   //   return pipe(
   //     this.filterInsideBoard,
   //     this.filterOutBlocked,
   //   this.filterOutUndefined,
   //     this.addTakeablePositions,
-  //   )(this.movePositions());
+  //   )(this.baseMovePositions());
   // };
 
   takeablePositions() {

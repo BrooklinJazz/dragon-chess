@@ -4,7 +4,7 @@ import { PieceFactory } from "./PieceFactory";
 import { Player } from "../redux/types";
 
 export class King extends Piece {
-  movePositions = (): (string | undefined)[] => {
+  baseMovePositions= (): (string | undefined)[] => {
     return [
       this.up().value(),
       this.left().value(),
@@ -17,9 +17,9 @@ export class King extends Piece {
     ];
   };
 
-  baseMovePositions = (): string[] =>
+  movePositionsAfterUniqueFilters = (): string[] =>
     pipe(
       this.filterOutUndefined,
       this.filterOutFriendlyPositions,
-    )(this.movePositions());
+    )(this.baseMovePositions());
 }
