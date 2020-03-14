@@ -23,9 +23,8 @@ export class Knight extends Piece {
     ];
   };
 
-  validMovePositions = (): string[] => pipe(
+  baseMovePositions = (): string[] => pipe(
     this.filterOutUndefined,
     this.filterOutFriendlyPositions,
-    this.filterOutLosingPositions
   )(this.movePositions());
 }

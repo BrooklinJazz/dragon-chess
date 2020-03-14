@@ -17,10 +17,9 @@ export class King extends Piece {
     ];
   };
 
-  validMovePositions = (): string[] =>
+  baseMovePositions = (): string[] =>
     pipe(
       this.filterOutUndefined,
       this.filterOutFriendlyPositions,
-      this.filterOutLosingPositions
     )(this.movePositions());
 }

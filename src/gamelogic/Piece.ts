@@ -68,10 +68,10 @@ export class Piece {
     )(this.baseMovePositions())
   }
   baseMovePositions(): string[] {
-    throw "NYI validmovepositions";
+    throw new Error("NYI baseMovePositions");
   }
   movePositions(): (string | undefined)[] {
-    throw "NYI movePositions";
+    throw new Error("NYI movePositions");
   }
 
   all = (fn: () => Position, total: string[] = []): string[] => {
@@ -117,7 +117,7 @@ export class Piece {
       this.player() === Player.black ? friendlyPieces : this.opponentPieces;
     const whitePositions = whitePieces.map(each => each.position);
     const blackPositions = blackPieces.map(each => each.position);
-    return this.opponentPieces.reduce(
+    return this.opponentPieces.filter(each => each.position !== move).reduce(
       (total: string[], opponentPiece) => {
         return [
           ...total,

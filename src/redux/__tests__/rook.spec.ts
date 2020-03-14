@@ -52,7 +52,7 @@ describe("knight", () => {
       .assertMovingPieceMatch(D2Rook)
       .assertNoValidPositions()
   });
-  xit("white player _ white turn _ D1King _ A1Rook on D2 _ A8Rook on D3", () => {
+  it("white player _ white turn _ D1King _ A1Rook on D2 _ A8Rook on D3", () => {
     const D2Rook = mockMove(A1Rook, D2)
     const D3Rook = mockMove(A8Rook, D3)
     fixture

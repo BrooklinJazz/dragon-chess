@@ -1,5 +1,6 @@
 import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
+import { A2 } from "../constants/positions";
 export class Pawn extends Piece {
   isFirstMove = () => {
     return this.position.value() === this.piece.initialPosition;
@@ -24,14 +25,22 @@ export class Pawn extends Piece {
     return this.isFirstMove() ? [this.up().value(), this.up().up().value()] : [this.up().value()];
   };
 
-  validMovePositions = (): string[] => {
+  baseMovePositions(): string[] {
     return pipe(
-      this.filterInsideBoard,
+      this.filterOutUndefined,
       this.filterOutBlocked,
-    this.filterOutUndefined,
-      this.addTakeablePositions,
-    )(this.movePositions());
-  };
+      this.filterInsideBoard,
+    )([...this.movePositions(), ...this.takeablePositions()])
+  }
+
+  // validMovePositions() {
+  //   return pipe(
+  //     this.filterInsideBoard,
+  //     this.filterOutBlocked,
+  //   this.filterOutUndefined,
+  //     this.addTakeablePositions,
+  //   )(this.movePositions());
+  // };
 
   takeablePositions() {
     const leftTake = this.up().left().value()
