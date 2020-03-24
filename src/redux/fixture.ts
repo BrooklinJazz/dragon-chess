@@ -99,4 +99,16 @@ export class Fixture {
   private assertNoValidPositionsImpl = () => {
     expect(this.validPositions()).toEqual([])
   };
+
+  assertPositionsIsValid = (position: string) =>
+    this.exec(() => this.assertPositionsIsValidImpl(position));
+  private assertPositionsIsValidImpl = (position: string) => {
+    expect(this.validPositions()).toContain(position)
+  };
+
+  assertPiecesMatch = (...pieces: IPiece[]) =>
+    this.exec(() => this.assertPiecesMatchImpl(pieces));
+  private assertPiecesMatchImpl = (pieces: IPiece[]) => {
+    expect([...this.pieces()].sort()).toEqual(pieces.sort())
+  };
 }

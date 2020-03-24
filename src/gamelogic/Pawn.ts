@@ -2,9 +2,6 @@ import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
 import { A2 } from "../constants/positions";
 export class Pawn extends Piece {
-  isFirstMove = () => {
-    return this.position.value() === this.piece.initialPosition;
-  };
   // TODO: make filterOutBlocked cleaner
   filterOutBlocked = (positions: string[]) => {
     const [move1, move2] = positions;

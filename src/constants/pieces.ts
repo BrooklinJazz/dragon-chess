@@ -20,6 +20,7 @@ export interface IPiece {
     position: string;
     initialPosition: string;
     id: string;
+    hasMoved: boolean;
 }
 
 export const createPiece = (player: Player, type: Pieces, position: string) => ({
@@ -27,7 +28,8 @@ export const createPiece = (player: Player, type: Pieces, position: string) => (
     type,
     player,
     position,
-    initialPosition: position
+    initialPosition: position,
+    hasMoved: false
 })
 
 const BlackRow7: IPiece[] = row7.map((position) => createPiece(Player.black, Pieces.pawn, position))
@@ -50,8 +52,8 @@ const WhiteRow1: IPiece[] = row1.map((position, index) => {
 
 // TODO create all pieces when needed
 export const [A2Pawn, B2Pawn] = WhiteRow2
-export const [A1Rook, B1Knight, C1Bishop, D1King, E1Queen, F1Bishop, H1Knight, G1Knight] = WhiteRow1
+export const [A1Rook, B1Knight, C1Bishop, D1King, E1Queen, F1Bishop, G1Knight, H1Rook] = WhiteRow1
 
-export const mockMove = (piece: IPiece, position: string) => ({...piece, position})
+export const mockMove = (piece: IPiece, position: string) => ({...piece, position, hasMoved: true})
 
 export const WhitePieces: IPiece[] = [...WhiteRow2, ...WhiteRow1]

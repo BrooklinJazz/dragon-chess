@@ -109,7 +109,7 @@ test("moving A2Pawn, A7Pawn in A4Position _ enabled A3 position _ movePawn to A3
   const a2Piece = selectPiece(store.getState(), A2);
   const a3Piece = selectPiece(store.getState(), A3);
   expect(a2Piece).toBeUndefined();
-  expect(a3Piece).toEqual({ ...A2Pawn, position: A3 });
+  expect(a3Piece).toEqual(mockMove(A2Pawn, A3));
 });
 
 test("initiateMove and movePiece _ A2Pawn _ fresh board", () => {
@@ -129,7 +129,7 @@ test("initiateMove and movePiece _ A2Pawn _ fresh board", () => {
   const a2Piece = selectPiece(store.getState(), A2);
   const a3Piece = selectPiece(store.getState(), A3);
   expect(a2Piece).toBeUndefined();
-  expect(a3Piece).toEqual({ ...A2Pawn, position: A3 });
+  expect(a3Piece).toEqual(mockMove(A2Pawn, A3));
 });
 
 test("initiateMove twice", () => {

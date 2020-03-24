@@ -21,6 +21,8 @@ export class Piece {
   isBlack = () =>  this.player() === Player.white
   isWhite = () =>  this.player() === Player.white
 
+  isFirstMove = () => !this.piece.hasMoved
+
   public allTakenPositions = this.pieces.map(each => each.position)
 
   public whitePieces = this.pieces.filter(each => each.player === Player.white)
@@ -57,6 +59,7 @@ export class Piece {
     // this avoids max call stack but is likely incorrect for validMovePositions.
     return this.movePositionsAfterUniqueFilters();
   }
+
   validMovePositions(): string[] {
     return pipe(
       this.filterOutLosingPositions
