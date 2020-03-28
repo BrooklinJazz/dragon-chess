@@ -27,14 +27,21 @@ const PositionContainer = styled.div<IContainerProps>(
   width: 100%;
   height: 100%;
   border: solid 1px black;
-  background-color: ${
-    props.disabled ? colorFromPosition(props.position) : "red"
-  };
+  background-color: ${colorFromPosition(props.position)};
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
   `
 );
+
+const Circle = styled.div`
+  width: 50%;
+  height: 50%;
+  background-color: whitesmoke;
+  border-radius: 50%;
+  position: absolute;
+`;
 
 export const Position = ({ position }: IPositionProps) => {
   const target = useRef<HTMLDivElement>(null);
@@ -57,7 +64,7 @@ export const Position = ({ position }: IPositionProps) => {
   };
   const requestMove = () => {
     if (movingPiece) {
-      dispatch(cancelMove())
+      dispatch(cancelMove());
     }
     if (piece) {
       dispatch(initiateMove({ piece }));
@@ -72,6 +79,7 @@ export const Position = ({ position }: IPositionProps) => {
       ref={target}
       position={position}
     >
+      {isValidMove && <Circle />}
       {piece && <Piece height={height} piece={piece} data-testid={piece.id} />}
     </PositionContainer>
   );
