@@ -78,7 +78,7 @@ describe("king", () => {
     .movePiece(G1)
     .assertPiecesMatch(mockMove(E1King, G1), mockMove(H1Rook, F1))
   });
-  it.only("white player _ white turn _ D1King _ H1Rook _ Castling", () => {
+  it("white player _ white turn _ D1King _ H1Rook _ Castling", () => {
     fixture
     .addPieces(E1King, A1Rook)
     .initiateMove(E1King)
