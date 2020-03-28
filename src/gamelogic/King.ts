@@ -2,11 +2,11 @@ import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
 import { PieceFactory } from "./PieceFactory";
 import { Player } from "../redux/types";
-import { G1, C1, D1, B1, F1 } from "../constants/positions";
-import { H1Rook, A1Rook } from "../constants/pieces";
+import { G1, C1, D1, B1, F1, D8, C8, B8, G8, F8 } from "../constants/positions";
+import { H1Rook, A1Rook, IPiece, A8Rook, H8Rook } from "../constants/pieces";
 
 export class King extends Piece {
-  baseMovePositions= (): (string | undefined)[] => {
+  baseMovePositions = (): (string | undefined)[] => {
     return [
       this.up().value(),
       this.left().value(),
@@ -19,36 +19,71 @@ export class King extends Piece {
     ];
   };
 
-  // TODO mondo refactor and actual logic needed
-  isH1RooksFirstMove = () => this.friendlyPieces.some(each => each.id === H1Rook.id && !each.hasMoved)
-  isA1RooksFirstMove = () => this.friendlyPieces.some(each => each.id === A1Rook.id && !each.hasMoved)
   // TODO add black player logic
-
-  validateKingSideCastle() {
-    const isBlocked = this.allTakenPositions.some(each => [F1, G1].includes(each))
-    return !isBlocked && this.isFirstMove() && this.isH1RooksFirstMove()
+  checkIsFirstMove(piece: IPiece) {
+    return this.pieces.some(each => each.id === piece.id && !each.hasMoved);
   }
 
-  validateQueenSideCastle() {
-    const isBlocked = this.allTakenPositions.some(each => [B1, C1, D1].includes(each))
-    return !isBlocked && this.isFirstMove() && this.isA1RooksFirstMove()
+  isBlocked(...positions: string[]) {
+    return this.allTakenPositions.some(each => positions.includes(each));
+  }
+
+  validateWhiteKingSideCastle() {
+    return (
+      this.isWhite() &&
+      !this.isBlocked(F1, G1) &&
+      this.isFirstMove() &&
+      this.checkIsFirstMove(H1Rook)
+    );
+  }
+
+  validateWhiteQueenSideCastle() {
+    return (
+      this.isWhite() &&
+      !this.isBlocked(B1, C1, D1) &&
+      this.isFirstMove() &&
+      this.checkIsFirstMove(A1Rook)
+    );
+  }
+
+  validateBlackQueenSideCastle() {
+    return (
+      this.isBlack() &&
+      !this.isBlocked(B8, C8, D8) &&
+      this.isFirstMove() &&
+      this.checkIsFirstMove(A8Rook)
+    );
+  }
+  validateBlackKingSideCastle() {
+    return (
+      this.isBlack() &&
+      !this.isBlocked(F8, G8) &&
+      this.isFirstMove() &&
+      this.checkIsFirstMove(H8Rook)
+    );
   }
 
   addCastlingMoves = (positions: string[]) => {
-    let clonedPositions = [...positions]
-    if (this.validateKingSideCastle()) {
-      clonedPositions.push(G1)
+    let clonedPositions = [...positions];
+    if (this.validateWhiteKingSideCastle()) {
+      clonedPositions.push(G1);
     }
-    if (this.validateQueenSideCastle()) {
-      clonedPositions.push(C1)
+    if (this.validateWhiteQueenSideCastle()) {
+      clonedPositions.push(C1);
     }
-    return [...clonedPositions]
-  }
+    if (this.validateBlackQueenSideCastle()) {
+      clonedPositions.push(C8);
+    }
+    if (this.validateBlackKingSideCastle()) {
+      clonedPositions.push(G8);
+    }
+    return [...clonedPositions];
+  };
 
   movePositionsAfterUniqueFilters = (): string[] =>
     pipe(
       this.filterOutUndefined,
       this.filterOutFriendlyPositions,
-      this.addCastlingMoves,
+      this.addCastlingMoves
     )(this.baseMovePositions());
 }

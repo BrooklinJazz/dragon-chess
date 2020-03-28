@@ -11,10 +11,10 @@ import { AnyAction } from "redux";
 
 export class Fixture {
   public store: ReturnType<typeof configureMockStore>;
-  constructor() {
+  constructor(player: Player = Player.white) {
     this.store = configureMockStore({
-      player: Player.white,
-      turn: Player.white,
+      player,
+      turn: player,
       pieces: [],
       movingPiece: undefined
     });

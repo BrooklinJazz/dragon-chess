@@ -18,7 +18,7 @@ export class Piece {
     this.position = new Position(piece.position, piece.player);
   }
   player = () => this.piece.player;
-  isBlack = () =>  this.player() === Player.white
+  isBlack = () =>  this.player() === Player.black
   isWhite = () =>  this.player() === Player.white
 
   isFirstMove = () => !this.piece.hasMoved

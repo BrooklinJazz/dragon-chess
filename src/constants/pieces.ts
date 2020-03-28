@@ -40,7 +40,7 @@ const BlackRow8: IPiece[] = row8.map((position, index) => {
 
 // TODO create all pieces when needed
 export const [A7Pawn, B7Pawn, C7Pawn, D7Pawn] = BlackRow7
-export const [A8Rook] = BlackRow8
+export const [A8Rook, B8Knight, C8Bishop, D8Queen, E8King, F8Bishop, G8Knight, H8Rook] = BlackRow8
 
 export const BlackPieces: IPiece[] = [...BlackRow7, ...BlackRow8]
 
