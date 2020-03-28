@@ -8,7 +8,8 @@ import {
   D7Pawn,
   E1Queen,
   D1King,
-  H1Rook
+  H1Rook,
+  E1King
 } from "../../constants/pieces";
 // prettier-ignore
 import { A3, D2, C2, H6, G5, F4, E3, G6, H5, G1, F2, D4, C5, B6, A7, C1, B2, A2, A4, A5, A6, B1, D1, E1, F1, H1, A8, E4, H4, G4, D7, D6, D5, D3, D8, B4, C4, H2, G2, E5, E6, E7, E8, F3, B5, E2, C3, G3
@@ -63,10 +64,10 @@ describe("king", () => {
 
   it("white player _ white turn _ D1King _ H1Rook _ Castling", () => {
     fixture
-    .addPieces(D1King, H1Rook)
-    .initiateMove(D1King)
+    .addPieces(E1King, H1Rook)
+    .initiateMove(E1King)
     .assertPositionsIsValid(G1)
     .movePiece(G1)
-    .assertPiecesMatch(mockMove(D1King, G1), mockMove(H1Rook, F1))
+    .assertPiecesMatch(mockMove(E1King, G1), mockMove(H1Rook, F1))
   });
 });
