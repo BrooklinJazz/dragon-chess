@@ -27,7 +27,8 @@ export class Pawn extends Piece {
       this.filterOutUndefined,
       this.filterOutBlocked,
       this.filterInsideBoard,
-    )([...this.baseMovePositions(), ...this.takeablePositions()])
+      this.addTakeablePositions
+    )([...this.baseMovePositions()])
   }
 
   takeablePositions() {

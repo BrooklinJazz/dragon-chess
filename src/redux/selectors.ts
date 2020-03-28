@@ -38,6 +38,7 @@ export const selectValidPositions = createSelector(
   selectMovingPiece,
   selectPieces,
   (movingPiece, pieces) => {
+    console.log("VALID PIECES", movingPiece && PieceFactory.fromPiece(movingPiece, pieces).validMovePositions())
     return movingPiece ? PieceFactory.fromPiece(movingPiece, pieces).validMovePositions() : []
   }
 );

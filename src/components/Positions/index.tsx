@@ -12,7 +12,6 @@ const positionsForBoard = ColumnArrays.reduce((total: string[], each) => {
 }, [])
 
 export const Positions = () => {
-    const movingPiece = useSelector(selectMovingPiece)
     return (<>{
         positionsForBoard.map(position => <Position key={position} position={position} data-testid={position} />)
     }</>);
