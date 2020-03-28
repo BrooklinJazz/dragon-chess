@@ -2,8 +2,8 @@ import { Piece } from "./Piece";
 import { pipe } from "../helpers.ts/pipe";
 import { PieceFactory } from "./PieceFactory";
 import { Player } from "../redux/types";
-import { G1 } from "../constants/positions";
-import { H1Rook } from "../constants/pieces";
+import { G1, C1 } from "../constants/positions";
+import { H1Rook, A1Rook } from "../constants/pieces";
 
 export class King extends Piece {
   baseMovePositions= (): (string | undefined)[] => {
@@ -21,10 +21,15 @@ export class King extends Piece {
 
   // TODO mondo refactor and actual logic needed
   isH1RooksFirstMove = () => this.friendlyPieces.some(each => each.id === H1Rook.id && !each.hasMoved)
+  isA1RooksFirstMove = () => this.friendlyPieces.some(each => each.id === A1Rook.id && !each.hasMoved)
+  // TODO add black player logic
   addCastlingMoves = (positions: string[]) => {
     let clonedPositions = [...positions]
     if (this.isFirstMove() && this.isH1RooksFirstMove()) {
       clonedPositions.push(G1)
+    }
+    if (this.isFirstMove() && this.isA1RooksFirstMove()) {
+      clonedPositions.push(C1)
     }
     return [...clonedPositions]
   }

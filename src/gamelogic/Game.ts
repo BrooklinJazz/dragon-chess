@@ -1,8 +1,8 @@
-import { IPiece, D1King, H1Rook } from "../constants/pieces";
+import { IPiece, D1King, H1Rook, A1Rook, E1King } from "../constants/pieces";
 import { selectValidPositions } from "../redux/selectors";
 import { IGameState } from "../redux/types";
 import { Player } from "../redux/types";
-import { G1, F1 } from "../constants/positions";
+import { G1, F1, C1, D1 } from "../constants/positions";
 
 export class Game {
   public state: IGameState;
@@ -33,7 +33,7 @@ export class Game {
 
   // TODO improve conditional accuracy
   isCastling = (position: string) => {
-    return position === G1 && this.state.movingPiece!.id === D1King.id && this.isFirstMove()
+    return [G1, C1].includes(position) && this.state.movingPiece!.id === E1King.id && this.isFirstMove()
   }
 
   castle = (position: string) => {
@@ -42,14 +42,18 @@ export class Game {
 
   // TODO make work with more than G1
   castleImpl = (position: string) => {
+    console.warn("POSITION", position)
     return {
       ...this.state,
       pieces: this.state.pieces.map(each => {
         if (each.id == this.state.movingPiece!.id) {
           return {...each, position, hasMoved: true}
-        } else if (each.id === H1Rook.id) {
+        } else if (each.id === H1Rook.id && position === G1) {
           return {...each, position: F1, hasMoved: true}
-        } else {
+        } else if (each.id === A1Rook.id && position === C1) {
+          return {...each, position: D1, hasMoved: true}
+        }
+         else {
           return each
         }
       }),
