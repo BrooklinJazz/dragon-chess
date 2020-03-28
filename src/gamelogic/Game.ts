@@ -79,7 +79,8 @@ export class Game {
         }
       }),
       movingPiece: undefined,
-      turn: this.state.turn === Player.white ? Player.black : Player.white
+      turn: this.state.turn === Player.white ? Player.black : Player.white,
+      player: this.state.player === Player.white ? Player.black : Player.white
     };
   };
 

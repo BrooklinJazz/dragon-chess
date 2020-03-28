@@ -133,6 +133,7 @@ describe("king", () => {
   });
 
   it("black player _ black turn _ E8King _ F8Bishop _ H8Rook _ INVALID Castling", () => {
+    fixture = new Fixture(Player.black);
     fixture
       .addPieces(E8King, H8Rook, F8Bishop)
       .initiateMove(E8King)
