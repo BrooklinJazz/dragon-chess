@@ -9,7 +9,8 @@ import {
   E1Queen,
   D1King,
   H1Rook,
-  E1King
+  E1King,
+  F1Bishop
 } from "../../constants/pieces";
 // prettier-ignore
 import { A3, D2, C2, H6, G5, F4, E3, G6, H5, G1, F2, D4, C5, B6, A7, C1, B2, A2, A4, A5, A6, B1, D1, E1, F1, H1, A8, E4, H4, G4, D7, D6, D5, D3, D8, B4, C4, H2, G2, E5, E6, E7, E8, F3, B5, E2, C3, G3
@@ -78,12 +79,24 @@ describe("king", () => {
     .movePiece(G1)
     .assertPiecesMatch(mockMove(E1King, G1), mockMove(H1Rook, F1))
   });
-  it("white player _ white turn _ D1King _ H1Rook _ Castling", () => {
+  it("white player _ white turn _ E1King _ H1Rook _ Castling", () => {
     fixture
     .addPieces(E1King, A1Rook)
     .initiateMove(E1King)
     .assertPositionsIsValid(C1)
     .movePiece(C1)
     .assertPiecesMatch(mockMove(E1King, C1), mockMove(A1Rook, D1))
+  });
+  it("white player _ white turn _ E1King _ C1Bishop _ A1Rook _ INVALID Castling", () => {
+    fixture
+    .addPieces(E1King, A1Rook, C1Bishop)
+    .initiateMove(E1King)
+    .assertIsNotValidPosition(C1)
+  });
+  it("white player _ white turn _ E1King _ F1Bishop _ H1Rook _ INVALID Castling", () => {
+    fixture
+    .addPieces(E1King, H1Rook, F1Bishop)
+    .initiateMove(E1King)
+    .assertIsNotValidPosition(G1)
   });
 });
