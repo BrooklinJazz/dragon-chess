@@ -1,6 +1,6 @@
 import { mockMove, B1Knight, C1Bishop, A7Pawn, A2Pawn, A8Rook, D1King } from '../../constants/pieces';
 import { A3, D2, C2, H6, G5, F4, E3, G6, H5, G1, F2, D4, C5, B6, A7, C1, B2, D3 } from '../../constants/positions';
-import { Fixture } from '../fixture';
+import { Fixture } from '../../redux/fixture';
 
 describe("knight", () => {
   let fixture: Fixture;

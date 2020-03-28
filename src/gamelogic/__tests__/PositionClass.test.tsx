@@ -1,6 +1,6 @@
-import {Position} from "./Position"
-import { A1, A2, A3, A4, A5, A6, A7, A8, B1, C1, D1, E1, F1, G1, H1, B2, C3 } from "../constants/positions"
-import { Player } from "../redux/types"
+import {Position} from "../Position"
+import { A1, A2, A3, A4, A5, A6, A7, A8, B1, C1, D1, E1, F1, G1, H1, B2, C3 } from "../../constants/positions"
+import { Player } from "../../redux/types"
 
 test("Position .up", () => {
     const a1 = new Position(A1)

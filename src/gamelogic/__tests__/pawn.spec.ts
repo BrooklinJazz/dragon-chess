@@ -1,6 +1,6 @@
 import { A7Pawn, B2Pawn, C7Pawn, mockMove, A8Rook, A2Pawn, D1King } from '../../constants/pieces';
 import { A3, B3, B4, C3, D2, D3, F1, E3 } from '../../constants/positions';
-import { Fixture } from '../fixture';
+import { Fixture } from '../../redux/fixture';
 
 describe("taking a piece", () => {
   let fixture: Fixture;

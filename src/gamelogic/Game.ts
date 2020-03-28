@@ -42,7 +42,6 @@ export class Game {
 
   // TODO make work with more than G1
   castleImpl = (position: string) => {
-    console.warn("POSITION", position)
     return {
       ...this.state,
       pieces: this.state.pieces.map(each => {
@@ -82,7 +81,8 @@ export class Game {
       ...this.state,
       pieces: this.state.pieces.filter(killPiece).map(insertPiece),
       movingPiece: undefined,
-      turn: this.state.turn === Player.white ? Player.black : Player.white
+      turn: this.state.turn === Player.white ? Player.black : Player.white,
+      player: this.state.player === Player.white ? Player.black : Player.white
     }
   };
 
